@@ -52,7 +52,7 @@ func (anyA *AnyAsserter) printNotError(expected any) {
 }
 
 func (anyA *AnyAsserter) printError(expected any) {
-	anyA.t.Fatalf("expected %v, got %v", expected, anyA.actual)
+	anyA.t.Fatalf("expected '%v', got '%v'", expected, anyA.actual)
 }
 
 func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
