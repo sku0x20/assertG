@@ -5,5 +5,5 @@ type T interface {
 }
 
 type Equals interface {
-	Equals(t T) bool
+	Equals(other any) bool
 }

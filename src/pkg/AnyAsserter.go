@@ -12,14 +12,28 @@ type AnyAsserter struct {
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
-	if !reflect.DeepEqual(anyA.actual, expected) {
+	eqT, ok := anyA.actual.(types.Equals)
+	isEqual := false
+	if ok {
+		isEqual = eqT.Equals(expected)
+	} else {
+		isEqual = reflect.DeepEqual(anyA.actual, expected)
+	}
+	if !isEqual {
 		anyA.printError(expected)
 	}
 	return anyA
 }
 
 func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
-	if reflect.DeepEqual(anyA.actual, expected) {
+	eqT, ok := anyA.actual.(types.Equals)
+	isEqual := false
+	if ok {
+		isEqual = eqT.Equals(expected)
+	} else {
+		isEqual = reflect.DeepEqual(anyA.actual, expected)
+	}
+	if isEqual {
 		anyA.printNotError(expected)
 	}
 	return anyA

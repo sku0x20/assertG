@@ -23,3 +23,14 @@ func (ft *FakeT) assertIsFatal(t *testing.T, message string) {
 		t.Fatalf("invalid message = '%v'", ft.error)
 	}
 }
+
+func (ft *FakeT) assertNotFatal(t *testing.T) {
+	if ft.isFatal {
+		t.Fatalf("should not be fatal")
+	}
+}
+
+func (ft *FakeT) reset() {
+	ft.isFatal = false
+	ft.error = ""
+}
