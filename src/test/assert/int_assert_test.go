@@ -2,12 +2,24 @@ package assert
 
 import (
 	"assertG/src/pkg"
+	"assertG/src/pkg/assert"
 	"testing"
 )
 
-func TestCorrectAsserter(t *testing.T) {
-	pkg.RegisterT(t)
-	// todo:
+func TestCorrectAsserter_1(t *testing.T) {
+	defer pkg.EnableAsserts(t)()
+	var asserter any = assert.AssertThat(10)
+	_, ok := asserter.(*pkg.Asserter)
+	if !ok {
+		t.Fatalf("invalid asserter type")
+	}
 }
 
-// support assert.That(12).isEqualTo(12) also
+func TestCorrectAsserter_2(t *testing.T) {
+	defer pkg.EnableAsserts(t)()
+	var asserter any = assert.That(10)
+	_, ok := asserter.(*pkg.Asserter)
+	if !ok {
+		t.Fatalf("invalid asserter type")
+	}
+}

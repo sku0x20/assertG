@@ -6,3 +6,8 @@ func AssertThat(actual int) *pkg.Asserter {
 	t := pkg.GetT()
 	return pkg.NewAsserter(t, actual)
 }
+
+func That(actual int) *pkg.Asserter {
+	t := pkg.GetT()
+	return pkg.NewAsserter(t, actual)
+}
