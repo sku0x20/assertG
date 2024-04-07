@@ -16,8 +16,5 @@ func (a *IntAsserter) IsEqualTo(expected int) {
 }
 
 func NewAsserter(t types.T, actual int) *IntAsserter {
-	if t == nil {
-		panic("t cannot be nil")
-	}
 	return &IntAsserter{t, actual}
 }

@@ -11,6 +11,9 @@ func RegisterT(t types.T) {
 }
 
 func GetT() types.T {
+	if th.t == nil {
+		panic("t is not set")
+	}
 	return th.t
 }
 
@@ -20,7 +23,9 @@ func CleanT() {
 
 func EnableAsserts(t types.T) func() {
 	RegisterT(t)
-	return func() { CleanT() }
+	return func() {
+		CleanT()
+	}
 }
 
 type tHolder struct {

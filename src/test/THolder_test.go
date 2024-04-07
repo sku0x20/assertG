@@ -5,18 +5,33 @@ import (
 	"testing"
 )
 
-func TestTHolder(t *testing.T) {
+func TestPanicsIfTIsNil(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("GetT should have panicked")
+		}
+	}()
+	pkg.GetT()
+}
+
+func TestClean(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("GetT should have panicked")
+		}
+	}()
 	pkg.RegisterT(t)
-	if pkg.GetT() != t {
-		t.Fatalf("unable to get T")
-	}
 	pkg.CleanT()
-	if pkg.GetT() != nil {
-		t.Fatalf("cleanup failed")
-	}
+	pkg.GetT()
+	t.Fatalf("GetT should have panicked")
 }
 
 func TestEnableAsserts(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("GetT should have panicked")
+		}
+	}()
 	defer func() {
 		if pkg.GetT() != nil {
 			t.Fatalf("cleanup failed")
