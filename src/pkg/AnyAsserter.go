@@ -10,23 +10,30 @@ type AnyAsserter struct {
 	actual any
 }
 
-func (ga *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
-	isEqual := reflect.DeepEqual(ga.actual, expected)
+func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
+	isEqual := reflect.DeepEqual(anyA.actual, expected)
 	if !isEqual {
-		ga.t.Fatalf("expected %v, got %v", expected, ga.actual)
+		anyA.printError(expected)
 	}
-	return ga
+	return anyA
 }
 
-func (ga *AnyAsserter) IsNil() *AnyAsserter {
-	return ga.IsEqualTo(nil)
+func (anyA *AnyAsserter) IsNil() *AnyAsserter {
+	if anyA.actual != nil {
+		anyA.printError("<nil>")
+	}
+	return anyA
 }
 
-func (ga *AnyAsserter) IsNotNil() *AnyAsserter {
-	if ga.actual == nil {
-		ga.t.Fatalf("expected not <nil>, got <nil>")
+func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
+	if anyA.actual == nil {
+		anyA.printError("not <nil>")
 	}
-	return ga
+	return anyA
+}
+
+func (anyA *AnyAsserter) printError(expected any) {
+	anyA.t.Fatalf("expected %v, got %v", expected, anyA.actual)
 }
 
 func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
