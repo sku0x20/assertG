@@ -7,13 +7,13 @@ import (
 )
 
 func TestAssertEquals(t *testing.T) {
-	asserter := pkg.NewAsserter(t, 10)
+	asserter := pkg.NewIntAsserter(t, 10)
 	asserter.IsEqualTo(10)
 }
 
 func TestAssertFatal(t *testing.T) {
 	fT := &fakeT{}
-	asserter := pkg.NewAsserter(fT, 10)
+	asserter := pkg.NewIntAsserter(fT, 10)
 	asserter.IsEqualTo(9)
 	if !fT.isCalled {
 		t.Fatalf("FatalF not called")

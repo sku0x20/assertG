@@ -15,6 +15,6 @@ func (a *IntAsserter) IsEqualTo(expected int) {
 	}
 }
 
-func NewAsserter(t types.T, actual int) *IntAsserter {
+func NewIntAsserter(t types.T, actual int) *IntAsserter {
 	return &IntAsserter{t, actual}
 }

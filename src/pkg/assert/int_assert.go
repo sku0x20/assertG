@@ -11,5 +11,5 @@ func That(actual int) *pkg.IntAsserter {
 }
 
 func createAsserter(actual int) *pkg.IntAsserter {
-	return pkg.NewAsserter(pkg.GetT(), actual)
+	return pkg.NewIntAsserter(pkg.GetT(), actual)
 }
