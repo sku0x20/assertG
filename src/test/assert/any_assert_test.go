@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestCorrectAsserter_1(t *testing.T) {
+func TestAssertThatAny(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
 	var asserter any = assert.AssertThat(10)
 	_, ok := asserter.(*pkg.AnyAsserter)
@@ -15,7 +15,7 @@ func TestCorrectAsserter_1(t *testing.T) {
 	}
 }
 
-func TestCorrectAsserter_2(t *testing.T) {
+func TestThat_Any(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
 	var asserter any = assert.That(10)
 	_, ok := asserter.(*pkg.AnyAsserter)
