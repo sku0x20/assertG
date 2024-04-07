@@ -8,5 +8,5 @@ import (
 
 func TestUsage(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
-	assert.That(10).IsEqualTo(10)
+	assert.That(10).IsNotNil().IsEqualTo(10)
 }
