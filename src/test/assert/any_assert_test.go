@@ -8,16 +8,16 @@ import (
 
 func TestAssertThatAny(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
-	var asserter any = assert.AssertThat(10)
+	var asserter any = assert.AssertThatAny(10)
 	_, ok := asserter.(*pkg.AnyAsserter)
 	if !ok {
 		t.Fatalf("invalid asserter type")
 	}
 }
 
-func TestThat_Any(t *testing.T) {
+func TestThatAny(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
-	var asserter any = assert.That(10)
+	var asserter any = assert.ThatAny(10)
 	_, ok := asserter.(*pkg.AnyAsserter)
 	if !ok {
 		t.Fatalf("invalid asserter type")
