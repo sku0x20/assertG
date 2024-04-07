@@ -44,3 +44,13 @@ func TestNotContains(t *testing.T) {
 	sa.NotContains("other")
 	ft.assertNotFatal(t)
 }
+
+func TestLength(t *testing.T) {
+	ft := &FakeT{}
+	sa := pkg.NewStringAsserter(ft, "some-string")
+	sa = sa.HasLength(8)
+	ft.assertIsFatal(t, "expected length '8', got '11'")
+	ft.reset()
+	sa.HasLength(11)
+	ft.assertNotFatal(t)
+}

@@ -35,6 +35,13 @@ func (sa *StringAsserter) NotContains(expected string) *StringAsserter {
 	return sa
 }
 
+func (sa *StringAsserter) HasLength(expected int) *StringAsserter {
+	if len(sa.actual) != expected {
+		sa.t.Fatalf("expected length '%d', got '%d'", expected, len(sa.actual))
+	}
+	return sa
+}
+
 func NewStringAsserter(t types.T, actual string) *StringAsserter {
 	return &StringAsserter{t: t, actual: actual, aa: NewAnyAsserter(t, actual)}
 }
