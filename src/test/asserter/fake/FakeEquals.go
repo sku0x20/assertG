@@ -1,15 +1,15 @@
-package test
+package fake
 
 type FakeEquals struct {
-	equal bool
+	Equal bool
 }
 
 func (st *FakeEquals) Equals(other any) bool {
-	return st.equal
+	return st.Equal
 }
 
 func (st *FakeEquals) String() string {
-	if st.equal {
+	if st.Equal {
 		return "everything is equal"
 	} else {
 		return "nothing is equal"

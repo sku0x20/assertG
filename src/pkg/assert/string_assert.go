@@ -1,15 +1,18 @@
 package assert
 
-import "assertG/src/pkg"
+import (
+	"assertG/src/pkg"
+	"assertG/src/pkg/asserter"
+)
 
-func AssertThatString(actual string) *pkg.StringAsserter {
+func AssertThatString(actual string) *asserter.StringAsserter {
 	return createStringAsserter(actual)
 }
 
-func ThatString(actual string) *pkg.StringAsserter {
+func ThatString(actual string) *asserter.StringAsserter {
 	return createStringAsserter(actual)
 }
 
-func createStringAsserter(actual string) *pkg.StringAsserter {
-	return pkg.NewStringAsserter(pkg.GetT(), actual)
+func createStringAsserter(actual string) *asserter.StringAsserter {
+	return asserter.NewStringAsserter(pkg.GetT(), actual)
 }

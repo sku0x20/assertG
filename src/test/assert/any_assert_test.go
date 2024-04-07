@@ -3,13 +3,14 @@ package assert
 import (
 	"assertG/src/pkg"
 	"assertG/src/pkg/assert"
+	"assertG/src/pkg/asserter"
 	"testing"
 )
 
 func TestAssertThatAny(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
-	var asserter any = assert.AssertThatAny(10)
-	_, ok := asserter.(*pkg.AnyAsserter)
+	var a any = assert.AssertThatAny(10)
+	_, ok := a.(*asserter.AnyAsserter)
 	if !ok {
 		t.Fatalf("invalid asserter type")
 	}
@@ -17,8 +18,8 @@ func TestAssertThatAny(t *testing.T) {
 
 func TestThatAny(t *testing.T) {
 	defer pkg.EnableAsserts(t)()
-	var asserter any = assert.ThatAny(10)
-	_, ok := asserter.(*pkg.AnyAsserter)
+	var a any = assert.ThatAny(10)
+	_, ok := a.(*asserter.AnyAsserter)
 	if !ok {
 		t.Fatalf("invalid asserter type")
 	}

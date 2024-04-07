@@ -1,4 +1,4 @@
-package test
+package fake
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func (ft *FakeT) Fatalf(format string, args ...any) {
 	ft.error = fmt.Sprintf(format, args...)
 }
 
-func (ft *FakeT) assertIsFatal(t *testing.T, message string) {
+func (ft *FakeT) AssertIsFatal(t *testing.T, message string) {
 	if !ft.isFatal {
 		t.Fatalf("should be fatal")
 	}
@@ -24,13 +24,13 @@ func (ft *FakeT) assertIsFatal(t *testing.T, message string) {
 	}
 }
 
-func (ft *FakeT) assertNotFatal(t *testing.T) {
+func (ft *FakeT) AssertNotFatal(t *testing.T) {
 	if ft.isFatal {
 		t.Fatalf("should not be fatal")
 	}
 }
 
-func (ft *FakeT) reset() {
+func (ft *FakeT) Reset() {
 	ft.isFatal = false
 	ft.error = ""
 }

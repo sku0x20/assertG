@@ -1,4 +1,4 @@
-package pkg
+package asserter
 
 import (
 	"assertG/src/pkg/types"
