@@ -5,20 +5,12 @@ import (
 	"reflect"
 )
 
-type GenericAsserter[T any] struct {
+type GenericAsserter struct {
 	t      types.T
-	actual T
+	actual any
 }
 
-// not working
-
-//func (ga *GenericAsserter[T]) IsNotNil() {
-//	if ga.actual == nil {
-//		ga.t.Fatalf("%v should not be nil", ga.actual)
-//	}
-//}
-
-func (ga *GenericAsserter[T]) IsEqualTo(expected T) *GenericAsserter[T] {
+func (ga *GenericAsserter) IsEqualTo(expected any) *GenericAsserter {
 	isEqual := reflect.DeepEqual(ga.actual, expected)
 	if !isEqual {
 		ga.t.Fatalf("expected %v, got %v", expected, ga.actual)
@@ -26,6 +18,10 @@ func (ga *GenericAsserter[T]) IsEqualTo(expected T) *GenericAsserter[T] {
 	return ga
 }
 
-func NewGenericAsserter[T any](t types.T, actual T) *GenericAsserter[T] {
-	return &GenericAsserter[T]{t: t, actual: actual}
+func (ga *GenericAsserter) IsNil() *GenericAsserter {
+	return ga.IsEqualTo(nil)
+}
+
+func NewGenericAsserter[T any](t types.T, actual T) *GenericAsserter {
+	return &GenericAsserter{t: t, actual: actual}
 }
