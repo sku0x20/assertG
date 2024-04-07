@@ -24,3 +24,13 @@ func TestStringNotEquals(t *testing.T) {
 	sa.IsNotEqualTo("other-string")
 	ft.assertNotFatal(t)
 }
+
+func TestContains(t *testing.T) {
+	ft := &FakeT{}
+	sa := pkg.NewStringAsserter(ft, "some-string")
+	sa = sa.Contains("other")
+	ft.assertIsFatal(t, "expected contains 'other', got 'some-string'")
+	ft.reset()
+	sa.Contains("some")
+	ft.assertNotFatal(t)
+}

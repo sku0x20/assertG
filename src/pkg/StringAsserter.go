@@ -1,6 +1,9 @@
 package pkg
 
-import "assertG/src/pkg/types"
+import (
+	"assertG/src/pkg/types"
+	"strings"
+)
 
 type StringAsserter struct {
 	t      types.T
@@ -15,6 +18,13 @@ func (sa *StringAsserter) IsEqualTo(expected string) *StringAsserter {
 
 func (sa *StringAsserter) IsNotEqualTo(expected string) *StringAsserter {
 	sa.aa.IsNotEqualTo(expected)
+	return sa
+}
+
+func (sa *StringAsserter) Contains(expected string) *StringAsserter {
+	if !strings.Contains(sa.actual, expected) {
+		sa.t.Fatalf("expected contains '%s', got '%s'", expected, sa.actual)
+	}
 	return sa
 }
 
