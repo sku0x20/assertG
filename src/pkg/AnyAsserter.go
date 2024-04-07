@@ -2,7 +2,6 @@ package pkg
 
 import (
 	"assertG/src/pkg/types"
-	"fmt"
 	"reflect"
 )
 
@@ -48,7 +47,7 @@ func (anyA *AnyAsserter) isEqual(expected any) bool {
 }
 
 func (anyA *AnyAsserter) printNotError(expected any) {
-	anyA.printError(fmt.Sprintf("not %v", expected))
+	anyA.t.Fatalf("not expected '%v', got '%v'", expected, anyA.actual)
 }
 
 func (anyA *AnyAsserter) printError(expected any) {

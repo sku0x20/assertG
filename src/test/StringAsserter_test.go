@@ -19,7 +19,7 @@ func TestStringNotEquals(t *testing.T) {
 	ft := &FakeT{}
 	sa := pkg.NewStringAsserter(ft, "some-string")
 	sa = sa.IsNotEqualTo("some-string")
-	ft.assertIsFatal(t, "expected 'not some-string', got 'some-string'")
+	ft.assertIsFatal(t, "not expected 'some-string', got 'some-string'")
 	ft.reset()
 	sa.IsNotEqualTo("other-string")
 	ft.assertNotFatal(t)

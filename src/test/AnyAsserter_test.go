@@ -33,7 +33,7 @@ func TestAnyNotEquals(t *testing.T) {
 	ft := &FakeT{}
 	ga := pkg.NewAnyAsserter(ft, 10)
 	ga.IsNotEqualTo(10)
-	ft.assertIsFatal(t, "expected 'not 10', got '10'")
+	ft.assertIsFatal(t, "not expected '10', got '10'")
 	ft.reset()
 	ga.IsNotEqualTo(20)
 	ft.assertNotFatal(t)
@@ -45,7 +45,7 @@ func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
 	fE2 := &FakeEquals{true}
 	ga1 := pkg.NewAnyAsserter(ft, fE2)
 	ga1.IsNotEqualTo(fE1)
-	ft.assertIsFatal(t, "expected 'not nothing is equal', got 'everything is equal'")
+	ft.assertIsFatal(t, "not expected 'nothing is equal', got 'everything is equal'")
 	ft.reset()
 	ga2 := pkg.NewAnyAsserter(ft, fE1)
 	ga2.IsNotEqualTo(fE2)
@@ -65,7 +65,7 @@ func TestAnyNil(t *testing.T) {
 func TestAnyNotNil(t *testing.T) {
 	ft := &FakeT{}
 	pkg.NewAnyAsserter(ft, nil).IsNotNil()
-	ft.assertIsFatal(t, "expected 'not <nil>', got '<nil>'")
+	ft.assertIsFatal(t, "not expected '<nil>', got '<nil>'")
 	ft.reset()
 	actual := 10
 	pkg.NewAnyAsserter(ft, &actual).IsNotNil()
