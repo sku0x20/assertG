@@ -2,14 +2,14 @@ package assert
 
 import "assertG/src/pkg"
 
-func AssertThat(actual int) *pkg.AnyAsserter {
+func AssertThat(actual any) *pkg.AnyAsserter {
 	return createAsserter(actual)
 }
 
-func That(actual int) *pkg.AnyAsserter {
+func That(actual any) *pkg.AnyAsserter {
 	return createAsserter(actual)
 }
 
-func createAsserter(actual int) *pkg.AnyAsserter {
+func createAsserter(actual any) *pkg.AnyAsserter {
 	return pkg.NewAnyAsserter(pkg.GetT(), actual)
 }
