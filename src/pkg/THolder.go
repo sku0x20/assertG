@@ -18,6 +18,11 @@ func CleanT() {
 	th.t = nil
 }
 
+func EnableAsserts(t types.T) func() {
+	RegisterT(t)
+	return func() { CleanT() }
+}
+
 type tHolder struct {
 	t types.T
 }
