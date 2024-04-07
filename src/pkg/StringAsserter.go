@@ -28,6 +28,13 @@ func (sa *StringAsserter) Contains(expected string) *StringAsserter {
 	return sa
 }
 
+func (sa *StringAsserter) NotContains(expected string) *StringAsserter {
+	if strings.Contains(sa.actual, expected) {
+		sa.t.Fatalf("expected not contains '%s', got '%s'", expected, sa.actual)
+	}
+	return sa
+}
+
 func NewStringAsserter(t types.T, actual string) *StringAsserter {
 	return &StringAsserter{t: t, actual: actual, aa: NewAnyAsserter(t, actual)}
 }

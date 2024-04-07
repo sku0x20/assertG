@@ -34,3 +34,13 @@ func TestContains(t *testing.T) {
 	sa.Contains("some")
 	ft.assertNotFatal(t)
 }
+
+func TestNotContains(t *testing.T) {
+	ft := &FakeT{}
+	sa := pkg.NewStringAsserter(ft, "some-string")
+	sa = sa.NotContains("some")
+	ft.assertIsFatal(t, "expected not contains 'some', got 'some-string'")
+	ft.reset()
+	sa.NotContains("other")
+	ft.assertNotFatal(t)
+}
