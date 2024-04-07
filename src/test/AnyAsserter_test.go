@@ -13,6 +13,13 @@ func TestAnyEquals(t *testing.T) {
 	ft.assertIsFatal(t, "expected 30, got 10")
 }
 
+func TestAnyNotEquals(t *testing.T) {
+	ft := &FakeT{}
+	ga := pkg.NewAnyAsserter(ft, 10)
+	ga.IsNotEqualTo(10)
+	ft.assertIsFatal(t, "expected not 10, got 10")
+}
+
 func TestAnyNil(t *testing.T) {
 	ft := &FakeT{}
 	actual := 10

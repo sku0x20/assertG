@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"assertG/src/pkg/types"
+	"fmt"
 	"reflect"
 )
 
@@ -11,9 +12,15 @@ type AnyAsserter struct {
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
-	isEqual := reflect.DeepEqual(anyA.actual, expected)
-	if !isEqual {
+	if !reflect.DeepEqual(anyA.actual, expected) {
 		anyA.printError(expected)
+	}
+	return anyA
+}
+
+func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
+	if reflect.DeepEqual(anyA.actual, expected) {
+		anyA.printNotError(expected)
 	}
 	return anyA
 }
@@ -27,9 +34,13 @@ func (anyA *AnyAsserter) IsNil() *AnyAsserter {
 
 func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 	if anyA.actual == nil {
-		anyA.printError("not <nil>")
+		anyA.printNotError("<nil>")
 	}
 	return anyA
+}
+
+func (anyA *AnyAsserter) printNotError(expected any) {
+	anyA.printError(fmt.Sprintf("not %v", expected))
 }
 
 func (anyA *AnyAsserter) printError(expected any) {
