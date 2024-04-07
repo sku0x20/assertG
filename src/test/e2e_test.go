@@ -1,7 +1,12 @@
 package test
 
-//import "testing"
+import (
+	"assertG/src/pkg"
+	"assertG/src/pkg/assert"
+	"testing"
+)
 
-//func TestAssertWithSetup(t *testing.T) {
-//	assertThat(10).isEqualTo(10)
-//}
+func TestUsage(t *testing.T) {
+	defer pkg.EnableAsserts(t)()
+	assert.That(10).IsEqualTo(10)
+}
