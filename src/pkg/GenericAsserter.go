@@ -19,10 +19,10 @@ type GenericAsserter[T any] struct {
 //}
 
 func (ga *GenericAsserter[T]) IsEqualTo(expected T) {
-	reflect.DeepEqual(ga.actual, expected)
-	//if ga.actual == expected {
-	//	ga.t.Fatalf("%v should not be nil", ga.actual)
-	//}
+	isEqual := reflect.DeepEqual(ga.actual, expected)
+	if !isEqual {
+		ga.t.Fatalf("expected %v, got %v", expected, ga.actual)
+	}
 }
 
 func NewGenericAsserter[T any](t types.T, actual T) *GenericAsserter[T] {
