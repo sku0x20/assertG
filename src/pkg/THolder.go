@@ -1,14 +1,16 @@
 package pkg
 
-import "assertG/src/pkg/assert"
+import (
+	"assertG/src/pkg/types"
+)
 
 var th = &tHolder{t: nil}
 
-func RegisterT(t assert.T) {
+func RegisterT(t types.T) {
 	th.t = t
 }
 
-func GetT() assert.T {
+func GetT() types.T {
 	return th.t
 }
 
@@ -17,5 +19,5 @@ func CleanT() {
 }
 
 type tHolder struct {
-	t assert.T
+	t types.T
 }

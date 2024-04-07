@@ -1,11 +1,11 @@
 package pkg
 
 import (
-	"assertG/src/pkg/assert"
+	"assertG/src/pkg/types"
 )
 
 type Asserter struct {
-	t      assert.T
+	t      types.T
 	actual int
 }
 
@@ -15,6 +15,9 @@ func (a *Asserter) IsEqualTo(expected int) {
 	}
 }
 
-func NewAsserter(t assert.T, actual int) *Asserter {
+func NewAsserter(t types.T, actual int) *Asserter {
+	if t == nil {
+		panic("t cannot be nil")
+	}
 	return &Asserter{t, actual}
 }
