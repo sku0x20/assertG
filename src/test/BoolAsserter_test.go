@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestIsNotNil(t *testing.T) {
+func TestBoolIsNotNil(t *testing.T) {
 	ba := pkg.NewBoolAsserter(t, true)
 	ba.IsNotNil()
 }
