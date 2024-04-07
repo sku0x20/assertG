@@ -20,3 +20,10 @@ func TestAnyNil(t *testing.T) {
 	ga.IsNil()
 	ft.assertIsFatal(t, fmt.Sprintf("expected <nil>, got %v", &actual))
 }
+
+func TestAnyNotNil(t *testing.T) {
+	ft := &FakeT{}
+	ga := pkg.NewAnyAsserter(ft, nil)
+	ga.IsNotNil()
+	ft.assertIsFatal(t, "expected not <nil>, got <nil>")
+}

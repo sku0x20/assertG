@@ -22,6 +22,13 @@ func (ga *AnyAsserter) IsNil() *AnyAsserter {
 	return ga.IsEqualTo(nil)
 }
 
+func (ga *AnyAsserter) IsNotNil() *AnyAsserter {
+	if ga.actual == nil {
+		ga.t.Fatalf("expected not <nil>, got <nil>")
+	}
+	return ga
+}
+
 func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
 	return &AnyAsserter{t: t, actual: actual}
 }
