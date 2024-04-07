@@ -12,28 +12,14 @@ type AnyAsserter struct {
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
-	eqT, ok := anyA.actual.(types.Equals)
-	isEqual := false
-	if ok {
-		isEqual = eqT.Equals(expected)
-	} else {
-		isEqual = reflect.DeepEqual(anyA.actual, expected)
-	}
-	if !isEqual {
+	if !anyA.isEqual(expected) {
 		anyA.printError(expected)
 	}
 	return anyA
 }
 
 func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
-	eqT, ok := anyA.actual.(types.Equals)
-	isEqual := false
-	if ok {
-		isEqual = eqT.Equals(expected)
-	} else {
-		isEqual = reflect.DeepEqual(anyA.actual, expected)
-	}
-	if isEqual {
+	if anyA.isEqual(expected) {
 		anyA.printNotError(expected)
 	}
 	return anyA
@@ -51,6 +37,14 @@ func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 		anyA.printNotError("<nil>")
 	}
 	return anyA
+}
+
+func (anyA *AnyAsserter) isEqual(expected any) bool {
+	eqT, ok := anyA.actual.(types.Equals)
+	if ok {
+		return eqT.Equals(expected)
+	}
+	return reflect.DeepEqual(anyA.actual, expected)
 }
 
 func (anyA *AnyAsserter) printNotError(expected any) {
