@@ -29,9 +29,17 @@ func TestFormatDifferent(t *testing.T) {
 	}
 }
 
-func TestFormatSame(t *testing.T) {
+func TestFormatSameString(t *testing.T) {
 	formatter := pkg.NewFormatter()
 	str := formatter.FormatErrorSame("1")
+	if str != "Not Expected:\n1" {
+		t.Errorf("wrong formatted string; \n'%s'\n", str)
+	}
+}
+
+func TestFormatSameInt(t *testing.T) {
+	formatter := pkg.NewFormatter()
+	str := formatter.FormatErrorSame(1)
 	if str != "Not Expected:\n1" {
 		t.Errorf("wrong formatted string; \n'%s'\n", str)
 	}
