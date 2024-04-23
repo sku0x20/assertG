@@ -16,7 +16,7 @@ func (ft *FakeT) Fatalf(format string, args ...any) {
 	ft.error = fmt.Sprintf(format, args...)
 }
 
-func (ft *FakeT) AssertIsFatal(t *testing.T, strs ...string) {
+func (ft *FakeT) AssertIsFatal(t *testing.T) {
 	if !ft.isFatal {
 		t.Fatalf("should be fatal")
 	}
