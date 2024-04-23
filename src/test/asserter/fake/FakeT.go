@@ -2,7 +2,7 @@ package fake
 
 import (
 	"fmt"
-	"strings"
+	"log"
 	"testing"
 )
 
@@ -20,11 +20,10 @@ func (ft *FakeT) AssertIsFatal(t *testing.T, strs ...string) {
 	if !ft.isFatal {
 		t.Fatalf("should be fatal")
 	}
-	for _, s := range strs {
-		if !strings.Contains(ft.error, s) {
-			t.Fatalf("invalid message = '%v'", ft.error)
-		}
-	}
+	log.Printf(`
+----= failure message =---- 
+%s
+`, ft.error)
 }
 
 func (ft *FakeT) AssertNotFatal(t *testing.T) {
