@@ -14,7 +14,7 @@ type AnyAsserter struct {
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
 	if !anyA.isEqual(expected) {
-		anyA.mismatch(expected)
+		anyA.expected(expected)
 	}
 	return anyA
 }
@@ -28,7 +28,7 @@ func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
 
 func (anyA *AnyAsserter) IsNil() *AnyAsserter {
 	if anyA.actual != nil {
-		anyA.mismatch("<nil>")
+		anyA.expected("<nil>")
 	}
 	return anyA
 }
@@ -48,12 +48,12 @@ func (anyA *AnyAsserter) isEqual(expected any) bool {
 	return reflect.DeepEqual(anyA.actual, expected)
 }
 
-func (anyA *AnyAsserter) notExpected(value any) {
-	anyA.t.Fatalf(anyA.formatter.FormatMatch(value))
+func (anyA *AnyAsserter) expected(value any) {
+	anyA.t.Fatalf(anyA.formatter.FormatMismatch(anyA.actual, value))
 }
 
-func (anyA *AnyAsserter) mismatch(expected any) {
-	anyA.t.Fatalf(anyA.formatter.FormatMismatch(anyA.actual, expected))
+func (anyA *AnyAsserter) notExpected(value any) {
+	anyA.t.Fatalf(anyA.formatter.FormatMatch(value))
 }
 
 // todo: convert formatter to explicit dependency
