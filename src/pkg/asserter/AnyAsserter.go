@@ -49,11 +49,15 @@ func (anyA *AnyAsserter) isEqual(expected any) bool {
 }
 
 func (anyA *AnyAsserter) expected(value any) {
-	anyA.t.Fatalf(anyA.formatter.FormatMismatch(anyA.actual, value))
+	anyA.error(anyA.formatter.FormatMismatch(anyA.actual, value))
 }
 
 func (anyA *AnyAsserter) notExpected(value any) {
-	anyA.t.Fatalf(anyA.formatter.FormatMatch(value))
+	anyA.error(anyA.formatter.FormatMatch(value))
+}
+
+func (anyA *AnyAsserter) error(str string) {
+	anyA.t.Fatalf(str)
 }
 
 // todo: convert formatter to explicit dependency
