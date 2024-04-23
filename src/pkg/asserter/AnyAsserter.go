@@ -47,11 +47,11 @@ func (anyA *AnyAsserter) isEqual(expected any) bool {
 }
 
 func (anyA *AnyAsserter) printNotError(expected any) {
-	anyA.t.Fatalf("not expected '%v', got '%v'", expected, anyA.actual)
+	anyA.t.Fatalf("not expected '%v',\n got '%v'", expected, anyA.actual)
 }
 
 func (anyA *AnyAsserter) printError(expected any) {
-	anyA.t.Fatalf("expected '%v', got '%v'", expected, anyA.actual)
+	anyA.t.Fatalf("expected '%v',\n got '%v'", expected, anyA.actual)
 }
 
 func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
