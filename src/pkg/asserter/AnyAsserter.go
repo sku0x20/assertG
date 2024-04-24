@@ -1,14 +1,14 @@
 package asserter
 
 import (
+	"assertG/src/pkg"
 	"assertG/src/pkg/format"
 	"assertG/src/pkg/types"
 	"reflect"
 )
 
 type AnyAsserter struct {
-	t      types.T
-	actual any
+	h *pkg.AsserterHelper
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
@@ -34,7 +34,7 @@ func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
 }
 
 func (anyA *AnyAsserter) IsNil() *AnyAsserter {
-	if anyA.actual != nil {
+	if anyA.actual() != nil {
 		anyA.error(
 			anyA.formatter().
 				Message(format.ToBeNil),
@@ -44,7 +44,7 @@ func (anyA *AnyAsserter) IsNil() *AnyAsserter {
 }
 
 func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
-	if anyA.actual == nil {
+	if anyA.actual() == nil {
 		anyA.error(
 			anyA.formatter().
 				Message(format.NotToBeNil),
@@ -54,22 +54,25 @@ func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 }
 
 func (anyA *AnyAsserter) isEqual(expected any) bool {
-	eqT, ok := anyA.actual.(types.Equals)
+	eqT, ok := anyA.actual().(types.Equals)
 	if ok {
 		return eqT.Equals(expected)
 	}
-	return reflect.DeepEqual(anyA.actual, expected)
+	return reflect.DeepEqual(anyA.actual(), expected)
+}
+
+func (anyA *AnyAsserter) actual() any {
+	return anyA.h.Actual()
 }
 
 func (anyA *AnyAsserter) error(builder *format.Builder) {
-	anyA.t.Fatalf(builder.ToString())
+	anyA.h.Error(builder)
 }
 
 func (anyA *AnyAsserter) formatter() *format.Builder {
-	return format.Expected().
-		Value(anyA.actual)
+	return anyA.h.Formatter()
 }
 
-func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
-	return &AnyAsserter{t: t, actual: actual}
+func NewAnyAsserter(h *pkg.AsserterHelper) *AnyAsserter {
+	return &AnyAsserter{h: h}
 }

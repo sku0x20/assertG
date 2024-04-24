@@ -14,5 +14,6 @@ func ThatAny(actual any) *asserter.AnyAsserter {
 }
 
 func createAnyAsserter(actual any) *asserter.AnyAsserter {
-	return asserter.NewAnyAsserter(pkg.GetT(), actual)
+	h := pkg.NewAssertHelper(pkg.GetT(), actual)
+	return asserter.NewAnyAsserter(h)
 }

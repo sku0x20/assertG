@@ -1,6 +1,7 @@
 package asserter
 
 import (
+	"assertG/src/pkg"
 	"assertG/src/pkg/asserter"
 	"assertG/src/test/types"
 	"testing"
@@ -8,7 +9,8 @@ import (
 
 func TestAnyEquals(t *testing.T) {
 	ft := types.NewFakeT(t)
-	ga := asserter.NewAnyAsserter(ft, 10)
+	h := pkg.NewAssertHelper(ft, 10)
+	ga := asserter.NewAnyAsserter(h)
 	ga.IsEqualTo(30)
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -20,18 +22,21 @@ func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
 	ft := types.NewFakeT(t)
 	equalFalse := &types.FakeEquals{false}
 	equalTrue := &types.FakeEquals{true}
-	ga1 := asserter.NewAnyAsserter(ft, equalFalse)
+	h := pkg.NewAssertHelper(ft, equalFalse)
+	ga1 := asserter.NewAnyAsserter(h)
 	ga1.IsEqualTo(equalTrue)
 	ft.AssertIsFatal()
 	ft.Reset()
-	ga2 := asserter.NewAnyAsserter(ft, equalTrue)
+	h2 := pkg.NewAssertHelper(ft, equalTrue)
+	ga2 := asserter.NewAnyAsserter(h2)
 	ga2.IsEqualTo(equalFalse)
 	ft.AssertNotFatal()
 }
 
 func TestAnyNotEquals(t *testing.T) {
 	ft := types.NewFakeT(t)
-	ga := asserter.NewAnyAsserter(ft, 10)
+	h := pkg.NewAssertHelper(ft, 10)
+	ga := asserter.NewAnyAsserter(h)
 	ga.IsNotEqualTo(10)
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -43,11 +48,13 @@ func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
 	ft := types.NewFakeT(t)
 	fE1 := &types.FakeEquals{false}
 	fE2 := &types.FakeEquals{true}
-	ga1 := asserter.NewAnyAsserter(ft, fE2)
+	h := pkg.NewAssertHelper(ft, fE2)
+	ga1 := asserter.NewAnyAsserter(h)
 	ga1.IsNotEqualTo(fE1)
 	ft.AssertIsFatal()
 	ft.Reset()
-	ga2 := asserter.NewAnyAsserter(ft, fE1)
+	h2 := pkg.NewAssertHelper(ft, fE1)
+	ga2 := asserter.NewAnyAsserter(h2)
 	ga2.IsNotEqualTo(fE2)
 	ft.AssertNotFatal()
 }
@@ -55,19 +62,23 @@ func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
 func TestAnyNil(t *testing.T) {
 	ft := types.NewFakeT(t)
 	actual := 10
-	asserter.NewAnyAsserter(ft, &actual).IsNil()
+	h := pkg.NewAssertHelper(ft, &actual)
+	asserter.NewAnyAsserter(h).IsNil()
 	ft.AssertIsFatal()
 	ft.Reset()
-	asserter.NewAnyAsserter(ft, nil).IsNil()
+	h2 := pkg.NewAssertHelper(ft, nil)
+	asserter.NewAnyAsserter(h2).IsNil()
 	ft.AssertNotFatal()
 }
 
 func TestAnyNotNil(t *testing.T) {
 	ft := types.NewFakeT(t)
-	asserter.NewAnyAsserter(ft, nil).IsNotNil()
+	h := pkg.NewAssertHelper(ft, nil)
+	asserter.NewAnyAsserter(h).IsNotNil()
 	ft.AssertIsFatal()
 	ft.Reset()
 	actual := 10
-	asserter.NewAnyAsserter(ft, &actual).IsNotNil()
+	h2 := pkg.NewAssertHelper(ft, &actual)
+	asserter.NewAnyAsserter(h2).IsNotNil()
 	ft.AssertNotFatal()
 }

@@ -1,6 +1,7 @@
 package asserter
 
 import (
+	"assertG/src/pkg"
 	"assertG/src/pkg/types"
 	"strings"
 )
@@ -43,5 +44,6 @@ func (sa *StringAsserter) HasLength(expected int) *StringAsserter {
 }
 
 func NewStringAsserter(t types.T, actual string) *StringAsserter {
-	return &StringAsserter{t: t, actual: actual, aa: NewAnyAsserter(t, actual)}
+	h := pkg.NewAssertHelper(t, actual)
+	return &StringAsserter{t: t, actual: actual, aa: NewAnyAsserter(h)}
 }
