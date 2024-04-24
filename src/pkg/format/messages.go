@@ -7,5 +7,6 @@ const (
 	NotToBeNil   = "NotToBeNil"
 	ToContain    = "ToContain"
 	NotToContain = "NotToContain"
-	HasLength    = "HasLength"
+	ToHaveLength = "ToHaveLength"
+	ButWas       = "ButWas"
 )

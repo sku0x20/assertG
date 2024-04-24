@@ -47,8 +47,10 @@ func (sa *StringAsserter) HasLength(expected int) *StringAsserter {
 	if len(sa.actual()) != expected {
 		sa.error(
 			sa.formatter().
-				Message(format.HasLength).
-				Value(expected),
+				Message(format.ToHaveLength).
+				Value(expected).
+				Message(format.ButWas).
+				Value(len(sa.actual())),
 		)
 	}
 	return sa
