@@ -8,28 +8,33 @@ import (
 
 type FakeT struct {
 	isFatal bool
-	error   string
+	Error   string
+	t       *testing.T
 }
 
 func (ft *FakeT) Fatalf(format string, args ...any) {
 	ft.isFatal = true
-	ft.error = fmt.Sprintf(format, args...)
+	ft.Error = fmt.Sprintf(format, args...)
 }
 
-func (ft *FakeT) AssertIsFatal(t *testing.T) {
+func (ft *FakeT) AssertIsFatal() {
 	if !ft.isFatal {
-		t.Fatalf("should be fatal")
+		ft.t.Fatalf("should be fatal")
 	}
-	log.Printf("\n----= failure message =----%s", ft.error)
+	log.Printf("\n----= failure message =----%s", ft.Error)
 }
 
-func (ft *FakeT) AssertNotFatal(t *testing.T) {
+func (ft *FakeT) AssertNotFatal() {
 	if ft.isFatal {
-		t.Fatalf("should not be fatal")
+		ft.t.Fatalf("should not be fatal")
 	}
 }
 
 func (ft *FakeT) Reset() {
 	ft.isFatal = false
-	ft.error = ""
+	ft.Error = ""
+}
+
+func NewFakeT(t *testing.T) *FakeT {
+	return &FakeT{t: t}
 }
