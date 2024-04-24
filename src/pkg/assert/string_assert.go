@@ -14,5 +14,5 @@ func ThatString(actual string) *asserter.StringAsserter {
 }
 
 func createStringAsserter(actual string) *asserter.StringAsserter {
-	return asserter.NewStringAsserter(pkg.GetT(), pkg.NewFormatter(), actual)
+	return asserter.NewStringAsserter(pkg.GetT(), actual)
 }

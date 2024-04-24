@@ -1,41 +1,39 @@
 package asserter
 
 import (
-	"assertG/src/pkg"
 	"assertG/src/pkg/types"
 	"reflect"
 )
 
 type AnyAsserter struct {
-	t         types.T
-	formatter *pkg.Formatter
-	actual    any
+	t      types.T
+	actual any
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
 	if !anyA.isEqual(expected) {
-		anyA.expected(expected)
+		anyA.error("test")
 	}
 	return anyA
 }
 
 func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
 	if anyA.isEqual(expected) {
-		anyA.notExpected(expected)
+		anyA.error("test")
 	}
 	return anyA
 }
 
 func (anyA *AnyAsserter) IsNil() *AnyAsserter {
 	if anyA.actual != nil {
-		anyA.expected("<nil>")
+		anyA.error("test")
 	}
 	return anyA
 }
 
 func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 	if anyA.actual == nil {
-		anyA.notExpected("<nil>")
+		anyA.error("test")
 	}
 	return anyA
 }
@@ -48,18 +46,10 @@ func (anyA *AnyAsserter) isEqual(expected any) bool {
 	return reflect.DeepEqual(anyA.actual, expected)
 }
 
-func (anyA *AnyAsserter) expected(value any) {
-	anyA.error(anyA.formatter.FormatMismatch(anyA.actual, value))
-}
-
-func (anyA *AnyAsserter) notExpected(value any) {
-	anyA.error(anyA.formatter.FormatMatch(value))
-}
-
 func (anyA *AnyAsserter) error(str string) {
 	anyA.t.Fatalf(str)
 }
 
-func NewAnyAsserter(t types.T, formatter *pkg.Formatter, actual any) *AnyAsserter {
-	return &AnyAsserter{t: t, formatter: formatter, actual: actual}
+func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
+	return &AnyAsserter{t: t, actual: actual}
 }
