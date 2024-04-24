@@ -20,10 +20,7 @@ func (ft *FakeT) AssertIsFatal(t *testing.T) {
 	if !ft.isFatal {
 		t.Fatalf("should be fatal")
 	}
-	log.Printf(`
-----= failure message =---- 
-%s
-`, ft.error)
+	log.Printf("\n----= failure message =----%s", ft.error)
 }
 
 func (ft *FakeT) AssertNotFatal(t *testing.T) {
