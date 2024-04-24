@@ -8,8 +8,8 @@ import (
 
 type AnyAsserter struct {
 	t         types.T
-	actual    any
 	formatter *pkg.Formatter
+	actual    any
 }
 
 func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
@@ -60,8 +60,6 @@ func (anyA *AnyAsserter) error(str string) {
 	anyA.t.Fatalf(str)
 }
 
-// todo: convert formatter to explicit dependency
-
-func NewAnyAsserter(t types.T, actual any) *AnyAsserter {
-	return &AnyAsserter{t: t, actual: actual, formatter: pkg.NewFormatter()}
+func NewAnyAsserter(t types.T, formatter *pkg.Formatter, actual any) *AnyAsserter {
+	return &AnyAsserter{t: t, formatter: formatter, actual: actual}
 }

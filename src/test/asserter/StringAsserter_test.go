@@ -1,6 +1,7 @@
 package asserter
 
 import (
+	"assertG/src/pkg"
 	"assertG/src/pkg/asserter"
 	"assertG/src/test/asserter/fake"
 	"testing"
@@ -8,7 +9,7 @@ import (
 
 func TestStringEquals(t *testing.T) {
 	ft := &fake.FakeT{}
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	sa := asserter.NewStringAsserter(ft, pkg.NewFormatter(), "some-string")
 	sa = sa.IsEqualTo("other-string")
 	ft.AssertIsFatal(t)
 	ft.Reset()
@@ -18,7 +19,7 @@ func TestStringEquals(t *testing.T) {
 
 func TestStringNotEquals(t *testing.T) {
 	ft := &fake.FakeT{}
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	sa := asserter.NewStringAsserter(ft, pkg.NewFormatter(), "some-string")
 	sa = sa.IsNotEqualTo("some-string")
 	ft.AssertIsFatal(t)
 	ft.Reset()
@@ -28,7 +29,7 @@ func TestStringNotEquals(t *testing.T) {
 
 func TestContains(t *testing.T) {
 	ft := &fake.FakeT{}
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	sa := asserter.NewStringAsserter(ft, pkg.NewFormatter(), "some-string")
 	sa = sa.Contains("other")
 	ft.AssertIsFatal(t)
 	ft.Reset()
@@ -38,7 +39,7 @@ func TestContains(t *testing.T) {
 
 func TestNotContains(t *testing.T) {
 	ft := &fake.FakeT{}
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	sa := asserter.NewStringAsserter(ft, pkg.NewFormatter(), "some-string")
 	sa = sa.NotContains("some")
 	ft.AssertIsFatal(t)
 	ft.Reset()
@@ -48,7 +49,7 @@ func TestNotContains(t *testing.T) {
 
 func TestLength(t *testing.T) {
 	ft := &fake.FakeT{}
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	sa := asserter.NewStringAsserter(ft, pkg.NewFormatter(), "some-string")
 	sa = sa.HasLength(8)
 	ft.AssertIsFatal(t)
 	ft.Reset()
