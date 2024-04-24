@@ -1,8 +1,11 @@
 package format
 
 const (
-	ToEqual    = "ToEqual"
-	NotToEqual = "NotToEqual"
-	ToBeNil    = "ToBeNil"
-	NotToBeNil = "NotToBeNil"
+	ToEqual      = "ToEqual"
+	NotToEqual   = "NotToEqual"
+	ToBeNil      = "ToBeNil"
+	NotToBeNil   = "NotToBeNil"
+	ToContain    = "ToContain"
+	NotToContain = "NotToContain"
+	HasLength    = "HasLength"
 )

@@ -1,6 +1,7 @@
 package asserter
 
 import (
+	"assertG/src/pkg"
 	"assertG/src/pkg/asserter"
 	"assertG/src/test/types"
 	"testing"
@@ -8,7 +9,8 @@ import (
 
 func TestStringEquals(t *testing.T) {
 	ft := types.NewFakeT(t)
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	h := pkg.NewAssertHelper(ft, "some-string")
+	sa := asserter.NewStringAsserter(h)
 	sa = sa.IsEqualTo("other-string")
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -18,7 +20,8 @@ func TestStringEquals(t *testing.T) {
 
 func TestStringNotEquals(t *testing.T) {
 	ft := types.NewFakeT(t)
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	h := pkg.NewAssertHelper(ft, "some-string")
+	sa := asserter.NewStringAsserter(h)
 	sa = sa.IsNotEqualTo("some-string")
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -28,7 +31,8 @@ func TestStringNotEquals(t *testing.T) {
 
 func TestContains(t *testing.T) {
 	ft := types.NewFakeT(t)
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	h := pkg.NewAssertHelper(ft, "some-string")
+	sa := asserter.NewStringAsserter(h)
 	sa = sa.Contains("other")
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -38,7 +42,8 @@ func TestContains(t *testing.T) {
 
 func TestNotContains(t *testing.T) {
 	ft := types.NewFakeT(t)
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	h := pkg.NewAssertHelper(ft, "some-string")
+	sa := asserter.NewStringAsserter(h)
 	sa = sa.NotContains("some")
 	ft.AssertIsFatal()
 	ft.Reset()
@@ -48,7 +53,8 @@ func TestNotContains(t *testing.T) {
 
 func TestLength(t *testing.T) {
 	ft := types.NewFakeT(t)
-	sa := asserter.NewStringAsserter(ft, "some-string")
+	h := pkg.NewAssertHelper(ft, "some-string")
+	sa := asserter.NewStringAsserter(h)
 	sa = sa.HasLength(8)
 	ft.AssertIsFatal()
 	ft.Reset()
