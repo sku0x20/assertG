@@ -2,6 +2,7 @@ package format
 
 const (
 	ToEqual    = "ToEqual"
-	ToNotEqual = "ToNotEqual"
-	ButWas     = "ButWas"
+	NotToEqual = "NotToEqual"
+	ToBeNil    = "ToBeNil"
+	NotToBeNil = "NotToBeNil"
 )
