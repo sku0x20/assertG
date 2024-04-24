@@ -2,12 +2,12 @@ package asserter
 
 import (
 	"assertG/src/pkg/asserter"
-	"assertG/src/test/asserter/fake"
+	"assertG/src/test/types"
 	"testing"
 )
 
 func TestAnyEquals(t *testing.T) {
-	ft := fake.NewFakeT(t)
+	ft := types.NewFakeT(t)
 	ga := asserter.NewAnyAsserter(ft, 10)
 	ga.IsEqualTo(30)
 	ft.AssertIsFatal()
@@ -17,9 +17,9 @@ func TestAnyEquals(t *testing.T) {
 }
 
 func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
-	ft := fake.NewFakeT(t)
-	equalFalse := &fake.FakeEquals{false}
-	equalTrue := &fake.FakeEquals{true}
+	ft := types.NewFakeT(t)
+	equalFalse := &types.FakeEquals{false}
+	equalTrue := &types.FakeEquals{true}
 	ga1 := asserter.NewAnyAsserter(ft, equalFalse)
 	ga1.IsEqualTo(equalTrue)
 	ft.AssertIsFatal()
@@ -30,7 +30,7 @@ func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
 }
 
 func TestAnyNotEquals(t *testing.T) {
-	ft := fake.NewFakeT(t)
+	ft := types.NewFakeT(t)
 	ga := asserter.NewAnyAsserter(ft, 10)
 	ga.IsNotEqualTo(10)
 	ft.AssertIsFatal()
@@ -40,9 +40,9 @@ func TestAnyNotEquals(t *testing.T) {
 }
 
 func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
-	ft := fake.NewFakeT(t)
-	fE1 := &fake.FakeEquals{false}
-	fE2 := &fake.FakeEquals{true}
+	ft := types.NewFakeT(t)
+	fE1 := &types.FakeEquals{false}
+	fE2 := &types.FakeEquals{true}
 	ga1 := asserter.NewAnyAsserter(ft, fE2)
 	ga1.IsNotEqualTo(fE1)
 	ft.AssertIsFatal()
@@ -53,7 +53,7 @@ func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
 }
 
 func TestAnyNil(t *testing.T) {
-	ft := fake.NewFakeT(t)
+	ft := types.NewFakeT(t)
 	actual := 10
 	asserter.NewAnyAsserter(ft, &actual).IsNil()
 	ft.AssertIsFatal()
@@ -63,7 +63,7 @@ func TestAnyNil(t *testing.T) {
 }
 
 func TestAnyNotNil(t *testing.T) {
-	ft := fake.NewFakeT(t)
+	ft := types.NewFakeT(t)
 	asserter.NewAnyAsserter(ft, nil).IsNotNil()
 	ft.AssertIsFatal()
 	ft.Reset()

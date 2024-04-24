@@ -1,4 +1,4 @@
-package fake
+package types
 
 type FakeEquals struct {
 	Equal bool
