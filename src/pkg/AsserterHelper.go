@@ -10,6 +10,10 @@ type AsserterHelper struct {
 	actual any
 }
 
+func (h *AsserterHelper) Actual() any {
+	return h.actual
+}
+
 func (h *AsserterHelper) Formatter() *format.Builder {
 	return format.Expected().
 		Value(h.actual)
