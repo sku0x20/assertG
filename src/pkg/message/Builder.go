@@ -11,19 +11,28 @@ type Builder struct {
 }
 
 func (b *Builder) Value(value any) *Builder {
-	b.sBuilder.WriteString(fmt.Sprintf("%v", value))
-	b.newLine()
-	return b
+	return b.formattedStringWithNewLine("%v", value)
 }
 
 func (b *Builder) Message(message string) *Builder {
-	b.sBuilder.WriteString(fmt.Sprintf("%s", message))
-	b.newLine()
-	return b
+	return b.formattedStringWithNewLine("%s", message)
+}
+
+func (b *Builder) formattedStringWithNewLine(format string, val any) *Builder {
+	return b.stringWithNewLine(fmt.Sprintf(format, val))
+}
+
+func (b *Builder) stringWithNewLine(str string) *Builder {
+	b.writeString(str)
+	return b.newLine()
 }
 
 func (b *Builder) newLine() *Builder {
-	b.sBuilder.WriteString("\n")
+	return b.writeString("\n")
+}
+
+func (b *Builder) writeString(str string) *Builder {
+	b.sBuilder.WriteString(str)
 	return b
 }
 
