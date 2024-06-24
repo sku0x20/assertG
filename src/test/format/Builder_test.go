@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestBuildsString1(t *testing.T) {
+func Test_BuildsString1(t *testing.T) {
 	str := format.Expected().
 		Value("a").
 		Message("ToEqual").
@@ -30,7 +30,7 @@ ButWas
 	}
 }
 
-func TestBuildString2(t *testing.T) {
+func Test_BuildString2(t *testing.T) {
 	str := format.Expected().
 		Message("ToBeNil").
 		Message("ButWas").
@@ -47,7 +47,7 @@ a
 	}
 }
 
-func TestBuildString3(t *testing.T) {
+func Test_BuildString3(t *testing.T) {
 	str := format.Expected().
 		Value("a").
 		Message("ToBeNil").
