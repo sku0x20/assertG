@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"assertG/src/pkg/format"
+	"assertG/src/pkg/message"
 	"assertG/src/pkg/types"
 )
 
@@ -14,12 +14,12 @@ func (h *AsserterHelper) Actual() any {
 	return h.actual
 }
 
-func (h *AsserterHelper) Formatter() *format.Builder {
-	return format.Expected().
+func (h *AsserterHelper) Formatter() *message.Builder {
+	return message.Expected().
 		Value(h.actual)
 }
 
-func (h *AsserterHelper) Error(builder *format.Builder) {
+func (h *AsserterHelper) Error(builder *message.Builder) {
 	h.t.Fatalf(builder.ToString())
 }
 

@@ -1,6 +1,7 @@
-package format
+package messages
 
 const (
+	Expected     = "Expected"
 	ToEqual      = "ToEqual"
 	NotToEqual   = "NotToEqual"
 	ToBeNil      = "ToBeNil"

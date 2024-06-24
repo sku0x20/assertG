@@ -1,12 +1,12 @@
-package format
+package message
 
 import (
-	"assertG/src/pkg/format"
+	"assertG/src/pkg/message"
 	"testing"
 )
 
 func Test_BuildsString1(t *testing.T) {
-	str := format.Expected().
+	str := message.Expected().
 		Value("a").
 		Message("ToEqual").
 		Value("20").
@@ -31,7 +31,7 @@ ButWas
 }
 
 func Test_BuildString2(t *testing.T) {
-	str := format.Expected().
+	str := message.Expected().
 		Message("ToBeNil").
 		Message("ButWas").
 		Value("a").
@@ -48,7 +48,7 @@ a
 }
 
 func Test_BuildString3(t *testing.T) {
-	str := format.Expected().
+	str := message.Expected().
 		Value("a").
 		Message("ToBeNil").
 		ToString()
