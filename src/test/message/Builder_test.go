@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test_BuildsString1(t *testing.T) {
+func Test_MultipleMessages(t *testing.T) {
 	str := message.Expected().
 		Value("a").
 		Message("ToEqual").
@@ -30,7 +30,7 @@ ButWas
 	}
 }
 
-func Test_BuildString2(t *testing.T) {
+func Test_ContinuousMessages(t *testing.T) {
 	str := message.Expected().
 		Message("ToBeNil").
 		Message("ButWas").
@@ -47,7 +47,7 @@ a
 	}
 }
 
-func Test_BuildString3(t *testing.T) {
+func Test_EndingWithMessage(t *testing.T) {
 	str := message.Expected().
 		Value("a").
 		Message("ToBeNil").
