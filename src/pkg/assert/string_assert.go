@@ -5,15 +5,12 @@ import (
 	"assertG/src/pkg/asserter"
 )
 
-func AssertThatString(actual string) *asserter.StringAsserter {
-	return createStringAsserter(actual)
-}
-
 func ThatString(actual string) *asserter.StringAsserter {
-	return createStringAsserter(actual)
+	return AssertThatString(actual)
 }
 
-func createStringAsserter(actual string) *asserter.StringAsserter {
+//goland:noinspection GoNameStartsWithPackageName
+func AssertThatString(actual string) *asserter.StringAsserter {
 	h := pkg.NewAssertHelper(pkg.GetT(), actual)
 	return asserter.NewStringAsserter(h)
 }
