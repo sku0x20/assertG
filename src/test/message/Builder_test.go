@@ -8,11 +8,11 @@ import (
 func Test_MultipleMessages(t *testing.T) {
 	str := message.Expected().
 		Value("a").
-		Message("ToEqual").
+		Verb("ToEqual").
 		Value("20").
-		Message("ToHaveLength").
+		Verb("ToHaveLength").
 		Value("21").
-		Message("ButWas").
+		Verb("ButWas").
 		Value("12").
 		ToString()
 	expected := `
@@ -32,8 +32,8 @@ ButWas
 
 func Test_ContinuousMessages(t *testing.T) {
 	str := message.Expected().
-		Message("ToBeNil").
-		Message("ButWas").
+		Verb("ToBeNil").
+		Verb("ButWas").
 		Value("a").
 		ToString()
 	expected := `
@@ -50,7 +50,7 @@ a
 func Test_EndingWithMessage(t *testing.T) {
 	str := message.Expected().
 		Value("a").
-		Message("ToBeNil").
+		Verb("ToBeNil").
 		ToString()
 	expected := `
 Expected

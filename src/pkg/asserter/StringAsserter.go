@@ -3,7 +3,7 @@ package asserter
 import (
 	"assertG/src/pkg"
 	"assertG/src/pkg/message"
-	"assertG/src/pkg/message/messages"
+	"assertG/src/pkg/message/verbs"
 	"strings"
 )
 
@@ -26,7 +26,7 @@ func (sa *StringAsserter) Contains(expected string) *StringAsserter {
 	if !strings.Contains(sa.actual(), expected) {
 		sa.error(
 			sa.formatter().
-				Message(messages.ToContain).
+				Verb(verbs.ToContain).
 				Value(expected),
 		)
 	}
@@ -37,7 +37,7 @@ func (sa *StringAsserter) NotContains(expected string) *StringAsserter {
 	if strings.Contains(sa.actual(), expected) {
 		sa.error(
 			sa.formatter().
-				Message(messages.NotToContain).
+				Verb(verbs.NotToContain).
 				Value(expected),
 		)
 	}
@@ -48,9 +48,9 @@ func (sa *StringAsserter) HasLength(expected int) *StringAsserter {
 	if len(sa.actual()) != expected {
 		sa.error(
 			sa.formatter().
-				Message(messages.ToHaveLength).
+				Verb(verbs.ToHaveLength).
 				Value(expected).
-				Message(messages.ButWas).
+				Verb(verbs.ButWas).
 				Value(len(sa.actual())),
 		)
 	}
@@ -61,11 +61,11 @@ func (sa *StringAsserter) actual() string {
 	return sa.h.Actual().(string)
 }
 
-func (sa *StringAsserter) error(builder *message.Builder) {
+func (sa *StringAsserter) error(builder *message.Message) {
 	sa.h.Error(builder)
 }
 
-func (sa *StringAsserter) formatter() *message.Builder {
+func (sa *StringAsserter) formatter() *message.Message {
 	return sa.h.Formatter()
 }
 

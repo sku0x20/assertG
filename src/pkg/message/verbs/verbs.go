@@ -1,4 +1,4 @@
-package messages
+package verbs
 
 const (
 	Expected     = "Expected"

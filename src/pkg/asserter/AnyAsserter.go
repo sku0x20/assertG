@@ -3,7 +3,7 @@ package asserter
 import (
 	"assertG/src/pkg"
 	"assertG/src/pkg/message"
-	"assertG/src/pkg/message/messages"
+	"assertG/src/pkg/message/verbs"
 	"assertG/src/pkg/types"
 	"reflect"
 )
@@ -16,7 +16,7 @@ func (anyA *AnyAsserter) IsEqualTo(expected any) *AnyAsserter {
 	if !anyA.isEqual(expected) {
 		anyA.error(
 			anyA.formatter().
-				Message(messages.ToEqual).
+				Verb(verbs.ToEqual).
 				Value(expected),
 		)
 	}
@@ -27,7 +27,7 @@ func (anyA *AnyAsserter) IsNotEqualTo(expected any) *AnyAsserter {
 	if anyA.isEqual(expected) {
 		anyA.error(
 			anyA.formatter().
-				Message(messages.NotToEqual).
+				Verb(verbs.NotToEqual).
 				Value(expected),
 		)
 	}
@@ -38,7 +38,7 @@ func (anyA *AnyAsserter) IsNil() *AnyAsserter {
 	if anyA.actual() != nil {
 		anyA.error(
 			anyA.formatter().
-				Message(messages.ToBeNil),
+				Verb(verbs.ToBeNil),
 		)
 	}
 	return anyA
@@ -48,7 +48,7 @@ func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 	if anyA.actual() == nil {
 		anyA.error(
 			anyA.formatter().
-				Message(messages.NotToBeNil),
+				Verb(verbs.NotToBeNil),
 		)
 	}
 	return anyA
@@ -66,11 +66,11 @@ func (anyA *AnyAsserter) actual() any {
 	return anyA.h.Actual()
 }
 
-func (anyA *AnyAsserter) error(builder *message.Builder) {
+func (anyA *AnyAsserter) error(builder *message.Message) {
 	anyA.h.Error(builder)
 }
 
-func (anyA *AnyAsserter) formatter() *message.Builder {
+func (anyA *AnyAsserter) formatter() *message.Message {
 	return anyA.h.Formatter()
 }
 

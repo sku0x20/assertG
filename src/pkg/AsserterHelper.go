@@ -14,12 +14,12 @@ func (h *AsserterHelper) Actual() any {
 	return h.actual
 }
 
-func (h *AsserterHelper) Formatter() *message.Builder {
+func (h *AsserterHelper) Formatter() *message.Message {
 	return message.Expected().
 		Value(h.actual)
 }
 
-func (h *AsserterHelper) Error(builder *message.Builder) {
+func (h *AsserterHelper) Error(builder *message.Message) {
 	h.t.Fatalf(builder.ToString())
 }
 
