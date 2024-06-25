@@ -5,8 +5,10 @@ import (
 	"testing"
 )
 
-func Test_MultipleMessages(t *testing.T) {
-	str := message.Expected().
+func Test_Message(t *testing.T) {
+	str := message.NewMessage().
+		NewLine().
+		Verb("Expected").
 		Value("a").
 		Verb("ToEqual").
 		Value("20").
@@ -30,32 +32,32 @@ ButWas
 	}
 }
 
-func Test_ContinuousMessages(t *testing.T) {
-	str := message.Expected().
+func Test_OnlyVerbs(t *testing.T) {
+	str := message.NewMessage().
+		NewLine().
+		Verb("Expected").
 		Verb("ToBeNil").
 		Verb("ButWas").
-		Value("a").
 		ToString()
 	expected := `
 Expected
 ToBeNil
 ButWas
-a
 `
 	if str != expected {
 		t.Fatalf("failure; msg = %s", str)
 	}
 }
 
-func Test_EndingWithMessage(t *testing.T) {
-	str := message.Expected().
+func Test_OnlyValues(t *testing.T) {
+	str := message.NewMessage().
+		NewLine().
 		Value("a").
-		Verb("ToBeNil").
+		Value("b").
 		ToString()
 	expected := `
-Expected
 a
-ToBeNil
+b
 `
 	if str != expected {
 		t.Fatalf("failure; msg = %s", str)
