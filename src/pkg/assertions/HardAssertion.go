@@ -14,5 +14,5 @@ type HardAssertion struct {
 }
 
 func (h *HardAssertion) FailWith(msg *message.Message) {
-	h.t.Fatalf("something")
+	h.t.Fatalf(msg.ToString())
 }

@@ -8,9 +8,16 @@ import (
 	"testing"
 )
 
-//func Test_PrintMsg(t *testing.T) {
-//	//t.Fatalf("todo")
-//}
+func Test_PrintMsg(t *testing.T) {
+	ft := NewFakeT(t)
+	ha := NewHardAssertion(ft)
+	msg := message.Expected().
+		Verb(verbs.ToBeNil)
+	ha.FailWith(msg)
+	if ft.Error != msg.ToString() {
+		t.Fatalf("expected '%s', got '%s'", msg.ToString(), ft.Error)
+	}
+}
 
 func Test_ExistsOnFailure(t *testing.T) {
 	ft := NewFakeT(t)
