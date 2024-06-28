@@ -5,6 +5,8 @@ import (
 	"assertG/src/pkg/message"
 	"assertG/src/pkg/message/verbs"
 	. "assertG/src/test/types"
+	"reflect"
+	"runtime"
 	"testing"
 )
 
@@ -19,8 +21,12 @@ func Test_HardAssertion(t *testing.T) {
 }
 
 var tests = map[string]testCase{
-	"PrintMsg":        PrintMsg,
-	"ExistsOnFailure": ExistsOnFailure,
+	funcName(PrintMsg):        PrintMsg,
+	funcName(ExistsOnFailure): ExistsOnFailure,
+}
+
+func funcName(i any) string {
+	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }
 
 type testCase func(t *testing.T, ft *FakeT, ha *HardAssertion)
