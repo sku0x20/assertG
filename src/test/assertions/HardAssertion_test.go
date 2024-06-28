@@ -5,16 +5,11 @@ import (
 	"assertG/src/pkg/message"
 	"assertG/src/pkg/message/verbs"
 	. "assertG/src/test/types"
-	"reflect"
-	"runtime"
 	"testing"
 )
 
-func PrintMsg(
-	t *testing.T,
-	ft *FakeT,
-	ha *HardAssertion,
-) {
+func Test_PrintMsg(t *testing.T) {
+	ft, ha := createInstances(t)
 	msg := message.Expected().
 		Verb(verbs.ToBeNil)
 	ha.FailWith(msg)
@@ -23,34 +18,16 @@ func PrintMsg(
 	}
 }
 
-func ExistsOnFailure(
-	t *testing.T,
-	ft *FakeT,
-	ha *HardAssertion,
-) {
+func Test_ExistsOnFailure(t *testing.T) {
+	ft, ha := createInstances(t)
 	msg := message.Expected().
 		Verb(verbs.ToBeNil)
 	ha.FailWith(msg)
 	ft.AssertIsFatal()
 }
 
-func Test_HardAssertion(t *testing.T) {
-	for tName, tCase := range tests {
-		t.Run(tName, func(t *testing.T) {
-			ft := NewFakeT(t)
-			ha := NewHardAssertion(ft)
-			tCase(t, ft, ha)
-		})
-	}
+func createInstances(t *testing.T) (*FakeT, *HardAssertion) {
+	ft := NewFakeT(t)
+	ha := NewHardAssertion(ft)
+	return ft, ha
 }
-
-var tests = map[string]testCase{
-	funcName(PrintMsg):        PrintMsg,
-	funcName(ExistsOnFailure): ExistsOnFailure,
-}
-
-func funcName(i any) string {
-	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
-}
-
-type testCase func(t *testing.T, ft *FakeT, ha *HardAssertion)
