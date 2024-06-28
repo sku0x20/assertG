@@ -9,22 +9,42 @@ import (
 )
 
 func Test_HardAssertion(t *testing.T) {
-	ft := NewFakeT(t)
-	ha := NewHardAssertion(ft)
+	for tName, tCase := range tests {
+		t.Run(tName, func(t *testing.T) {
+			ft := NewFakeT(t)
+			ha := NewHardAssertion(ft)
+			tCase(t, ft, ha)
+		})
+	}
+}
 
-	t.Run("Print_Msg", func(t *testing.T) {
-		msg := message.Expected().
-			Verb(verbs.ToBeNil)
-		ha.FailWith(msg)
-		if ft.Error != msg.ToString() {
-			t.Fatalf("expected '%s', got '%s'", msg.ToString(), ft.Error)
-		}
-	})
+var tests = map[string]testCase{
+	"PrintMsg":        PrintMsg,
+	"ExistsOnFailure": ExistsOnFailure,
+}
 
-	t.Run("ExistsOnFailure", func(t *testing.T) {
-		msg := message.Expected().
-			Verb(verbs.ToBeNil)
-		ha.FailWith(msg)
-		ft.AssertIsFatal()
-	})
+type testCase func(t *testing.T, ft *FakeT, ha *HardAssertion)
+
+func PrintMsg(
+	t *testing.T,
+	ft *FakeT,
+	ha *HardAssertion,
+) {
+	msg := message.Expected().
+		Verb(verbs.ToBeNil)
+	ha.FailWith(msg)
+	if ft.Error != msg.ToString() {
+		t.Fatalf("expected '%s', got '%s'", msg.ToString(), ft.Error)
+	}
+}
+
+func ExistsOnFailure(
+	t *testing.T,
+	ft *FakeT,
+	ha *HardAssertion,
+) {
+	msg := message.Expected().
+		Verb(verbs.ToBeNil)
+	ha.FailWith(msg)
+	ft.AssertIsFatal()
 }

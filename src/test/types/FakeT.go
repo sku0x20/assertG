@@ -21,6 +21,7 @@ func (ft *FakeT) AssertIsFatal() {
 	if !ft.isFatal {
 		ft.t.Fatalf("should be fatal")
 	}
+	// todo: remove this
 	log.Printf("\n----= failure message =----%s", ft.Error)
 }
 
