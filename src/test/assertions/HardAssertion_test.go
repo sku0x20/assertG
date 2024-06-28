@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_PrintMsg(t *testing.T) {
+func Test_PrintsMsg(t *testing.T) {
 	ft, ha := createInstances(t)
 	msg := message.Expected().
 		Verb(verbs.ToBeNil)
