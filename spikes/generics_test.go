@@ -31,7 +31,27 @@ func makeIntVal() {
 	fmt.Printf("%d\n", tString.getVal())
 }
 
-func Test_generics(t *testing.T) {
+func Test_generics1(t *testing.T) {
 	makeStringVal()
 	makeIntVal()
+}
+
+func Test_generics2(t *testing.T) {
+	a := make([]any, 10)
+	a[0] = 1
+	a[1] = "r"
+
+	t1 := maker("tr")
+	//t1[0] = 1 // invalid
+	t1[1] = "r"
+	taker(a)
+	taker(t1)
+}
+
+func maker[T any](t T) []T {
+	return make([]T, 90)
+}
+
+func taker[T any](in []T) {
+	// take
 }
