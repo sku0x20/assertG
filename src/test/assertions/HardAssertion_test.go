@@ -10,27 +10,6 @@ import (
 	"testing"
 )
 
-func Test_HardAssertion(t *testing.T) {
-	for tName, tCase := range tests {
-		t.Run(tName, func(t *testing.T) {
-			ft := NewFakeT(t)
-			ha := NewHardAssertion(ft)
-			tCase(t, ft, ha)
-		})
-	}
-}
-
-var tests = map[string]testCase{
-	funcName(PrintMsg):        PrintMsg,
-	funcName(ExistsOnFailure): ExistsOnFailure,
-}
-
-func funcName(i any) string {
-	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
-}
-
-type testCase func(t *testing.T, ft *FakeT, ha *HardAssertion)
-
 func PrintMsg(
 	t *testing.T,
 	ft *FakeT,
@@ -54,3 +33,24 @@ func ExistsOnFailure(
 	ha.FailWith(msg)
 	ft.AssertIsFatal()
 }
+
+func Test_HardAssertion(t *testing.T) {
+	for tName, tCase := range tests {
+		t.Run(tName, func(t *testing.T) {
+			ft := NewFakeT(t)
+			ha := NewHardAssertion(ft)
+			tCase(t, ft, ha)
+		})
+	}
+}
+
+var tests = map[string]testCase{
+	funcName(PrintMsg):        PrintMsg,
+	funcName(ExistsOnFailure): ExistsOnFailure,
+}
+
+func funcName(i any) string {
+	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
+}
+
+type testCase func(t *testing.T, ft *FakeT, ha *HardAssertion)
