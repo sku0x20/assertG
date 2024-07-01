@@ -30,9 +30,16 @@ func Test_Fixtures(t *testing.T) {
 	}
 }
 
-//func Test_FixturesTMatches(){
-//
-//}
+func Test_FixturesTMatches(t *testing.T) {
+	r := runner.NewTestsRunner(t)
+	r.Setup(ChangeSetup)
+	r.Add(ChangeRan)
+	r.Teardown(ChangeTeardown)
+	r.Run()
+	if setupT != testT || teardownT != testT {
+		t.Fatalf("t different for fixtures")
+	}
+}
 
 var testT *testing.T = nil
 
