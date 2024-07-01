@@ -15,9 +15,10 @@ type (
 
 func NewTestsRunner(t *testing.T) *TestsRunner {
 	return &TestsRunner{
-		t:     t,
-		tests: make([]TestFunc, 0, 10),
-		setup: func(t *testing.T) any { return nil },
+		t:        t,
+		tests:    make([]TestFunc, 0, 10),
+		setup:    func(t *testing.T) any { return nil },
+		teardown: func(t *testing.T) {},
 	}
 }
 
@@ -34,7 +35,11 @@ func (r *TestsRunner) Add(f TestFunc) {
 
 func (r *TestsRunner) Run() {
 	for _, tf := range r.tests {
-		r.t.Run(funcName(tf), tf)
+		r.t.Run(funcName(tf), func(t *testing.T) {
+			r.setup(t)
+			tf(t)
+			r.teardown(t)
+		})
 	}
 }
 
@@ -42,7 +47,7 @@ func (r *TestsRunner) Setup(f SetupFunc) {
 	r.setup = f
 }
 
-func (r *TestsRunner) TearDown(f TeardownFunc) {
+func (r *TestsRunner) Teardown(f TeardownFunc) {
 	r.teardown = f
 }
 
