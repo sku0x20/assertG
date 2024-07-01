@@ -14,7 +14,7 @@ func Test_NoFixtures(t *testing.T) {
 	r := runner.NewTestsRunner(t)
 	r.Add(ChangeRan)
 	r.Run()
-	if !ran {
+	if testT == nil {
 		t.Fatalf("didn't ran the tests")
 	}
 }
@@ -25,26 +25,30 @@ func Test_Fixtures(t *testing.T) {
 	r.Add(ChangeRan)
 	r.Teardown(ChangeTeardown)
 	r.Run()
-	if !setup || !teardown {
+	if setupT == nil || teardownT == nil {
 		t.Fatalf("didn't ran the fixtures")
 	}
 }
 
-var ran = false
+//func Test_FixturesTMatches(){
+//
+//}
+
+var testT *testing.T = nil
 
 func ChangeRan(t *testing.T) {
-	ran = true
+	testT = t
 }
 
-var setup = false
+var setupT *testing.T = nil
 
 func ChangeSetup(t *testing.T) any {
-	setup = true
+	setupT = t
 	return nil
 }
 
-var teardown = false
+var teardownT *testing.T = nil
 
 func ChangeTeardown(t *testing.T) {
-	teardown = true
+	teardownT = t
 }
