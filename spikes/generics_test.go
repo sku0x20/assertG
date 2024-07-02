@@ -55,3 +55,27 @@ func maker[T any](t T) []T {
 func taker[T any](in []T) {
 	// take
 }
+
+func Test_generics3(t *testing.T) {
+	sg := &SG[string]{}
+	sg.Setup(func() string {
+		return "test"
+	})
+	sg.Run(func(s string) {
+		t.Logf("got %s", s)
+	})
+}
+
+type SG[T any] struct {
+	setup func() T
+	run   func(T)
+}
+
+func (s *SG[T]) Setup(f func() T) {
+	s.setup = f
+}
+
+func (s *SG[T]) Run(f func(T)) {
+	r := s.setup()
+	f(r)
+}
