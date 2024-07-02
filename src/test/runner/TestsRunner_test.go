@@ -41,9 +41,23 @@ func Test_FixturesTMatches(t *testing.T) {
 	}
 }
 
+func Test_PassingExtras(tm *testing.T) {
+	r := runner.NewTestsRunner(tm)
+	r.Setup(func(ts *testing.T) any {
+		return "some value"
+	})
+	r.Add(func(tr *testing.T, extra any) {
+		value := extra.(string)
+		if value != "some value" {
+			tr.Fatalf("wrong value, expected \"some value\", got \"%s\"", value)
+		}
+	})
+	r.Run()
+}
+
 var testT *testing.T = nil
 
-func ChangeRan(t *testing.T) {
+func ChangeRan(t *testing.T, extra any) {
 	testT = t
 }
 

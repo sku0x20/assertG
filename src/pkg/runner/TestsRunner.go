@@ -8,7 +8,7 @@ import (
 )
 
 type (
-	TestFunc     = func(t *testing.T)
+	TestFunc     = func(t *testing.T, extra any)
 	SetupFunc    = func(t *testing.T) any
 	TeardownFunc = func(t *testing.T)
 )
@@ -36,8 +36,8 @@ func (r *TestsRunner) Add(f TestFunc) {
 func (r *TestsRunner) Run() {
 	for _, tf := range r.tests {
 		r.t.Run(funcName(tf), func(t *testing.T) {
-			r.setup(t)
-			tf(t)
+			extra := r.setup(t)
+			tf(t, extra)
 			r.teardown(t)
 		})
 	}
