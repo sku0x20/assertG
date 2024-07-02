@@ -6,12 +6,12 @@ import (
 )
 
 func Test_Nop(t *testing.T) {
-	r := runner.NewTestsRunner(t)
+	r := runner.NewTestsRunner[any](t)
 	r.Run()
 }
 
 func Test_NoFixtures(t *testing.T) {
-	r := runner.NewTestsRunner(t)
+	r := runner.NewTestsRunner[any](t)
 	r.Add(ChangeRan)
 	r.Run()
 	if testT == nil {
@@ -20,7 +20,7 @@ func Test_NoFixtures(t *testing.T) {
 }
 
 func Test_Fixtures(t *testing.T) {
-	r := runner.NewTestsRunner(t)
+	r := runner.NewTestsRunner[any](t)
 	r.Setup(ChangeSetup)
 	r.Add(ChangeRan)
 	r.Teardown(ChangeTeardown)
@@ -31,7 +31,7 @@ func Test_Fixtures(t *testing.T) {
 }
 
 func Test_FixturesTMatches(t *testing.T) {
-	r := runner.NewTestsRunner(t)
+	r := runner.NewTestsRunner[any](t)
 	r.Setup(ChangeSetup)
 	r.Add(ChangeRan)
 	r.Teardown(ChangeTeardown)
@@ -42,14 +42,13 @@ func Test_FixturesTMatches(t *testing.T) {
 }
 
 func Test_PassingExtras(tm *testing.T) {
-	r := runner.NewTestsRunner(tm)
-	r.Setup(func(ts *testing.T) any {
+	r := runner.NewTestsRunner[string](tm)
+	r.Setup(func(ts *testing.T) string {
 		return "some value"
 	})
-	r.Add(func(tr *testing.T, extra any) {
-		value := extra.(string)
-		if value != "some value" {
-			tr.Fatalf("wrong value, expected \"some value\", got \"%s\"", value)
+	r.Add(func(tr *testing.T, extra string) {
+		if extra != "some value" {
+			tr.Fatalf("wrong value, expected \"some value\", got \"%s\"", extra)
 		}
 	})
 	r.Run()
