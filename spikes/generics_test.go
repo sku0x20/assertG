@@ -79,3 +79,16 @@ func (s *SG[T]) Run(f func(T)) {
 	r := s.setup()
 	f(r)
 }
+
+func Test_any(t *testing.T) {
+	var a any = 5
+	var b int = 10
+	var c *int = &b
+
+	t.Logf("%d\n", a)
+	//a = nil
+	t.Logf("%v\n", a)
+
+	t.Logf("%d\n", c)
+	t.Logf("%v\n", c)
+}
