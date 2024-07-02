@@ -7,31 +7,31 @@ import (
 	"testing"
 )
 
-type TestFunc[T any] func(t *testing.T, extra T)
-type SetupFunc[T any] func(t *testing.T) T
-type TeardownFunc func(t *testing.T)
-
-func NewTestsRunner[T any](t *testing.T) *TestsRunner[T] {
-	return &TestsRunner[T]{
+func NewTestsRunner[E any](t *testing.T) *TestsRunner[E] {
+	return &TestsRunner[E]{
 		t:        t,
-		tests:    make([]TestFunc[T], 0, 10),
-		setup:    func(t *testing.T) T { return *new(T) },
+		tests:    make([]TestFunc[E], 0, 10),
+		setup:    func(t *testing.T) E { return *new(E) },
 		teardown: func(t *testing.T) {},
 	}
 }
 
-type TestsRunner[T any] struct {
+type TestFunc[E any] func(t *testing.T, extra E)
+type SetupFunc[E any] func(t *testing.T) E
+type TeardownFunc func(t *testing.T)
+
+type TestsRunner[E any] struct {
 	t        *testing.T
-	tests    []TestFunc[T]
-	setup    SetupFunc[T]
+	tests    []TestFunc[E]
+	setup    SetupFunc[E]
 	teardown TeardownFunc
 }
 
-func (r *TestsRunner[T]) Add(f TestFunc[T]) {
+func (r *TestsRunner[E]) Add(f TestFunc[E]) {
 	r.tests = append(r.tests, f)
 }
 
-func (r *TestsRunner[T]) Run() {
+func (r *TestsRunner[E]) Run() {
 	for _, tf := range r.tests {
 		r.t.Run(funcName(tf), func(t *testing.T) {
 			extra := r.setup(t)
@@ -41,11 +41,11 @@ func (r *TestsRunner[T]) Run() {
 	}
 }
 
-func (r *TestsRunner[T]) Setup(f SetupFunc[T]) {
+func (r *TestsRunner[E]) Setup(f SetupFunc[E]) {
 	r.setup = f
 }
 
-func (r *TestsRunner[T]) Teardown(f TeardownFunc) {
+func (r *TestsRunner[E]) Teardown(f TeardownFunc) {
 	r.teardown = f
 }
 
