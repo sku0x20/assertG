@@ -7,11 +7,9 @@ import (
 	"testing"
 )
 
-type (
-	TestFunc     = func(t *testing.T, extra any)
-	SetupFunc    = func(t *testing.T) any
-	TeardownFunc = func(t *testing.T)
-)
+type TestFunc func(t *testing.T, extra any)
+type SetupFunc func(t *testing.T) any
+type TeardownFunc func(t *testing.T)
 
 func NewTestsRunner(t *testing.T) *TestsRunner {
 	return &TestsRunner{
