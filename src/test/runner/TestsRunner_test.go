@@ -12,18 +12,18 @@ func Test_Nop(t *testing.T) {
 
 func Test_NoFixtures(t *testing.T) {
 	r := runner.NewTestsRunner[any](t)
-	r.Add(ChangeRan)
+	r.Add(T1)
 	r.Run()
-	if testT == nil {
+	if t1 == nil {
 		t.Fatalf("didn't ran the tests")
 	}
 }
 
 func Test_Fixtures(t *testing.T) {
 	r := runner.NewTestsRunner[any](t)
-	r.Setup(ChangeSetup)
-	r.Add(ChangeRan)
-	r.Teardown(ChangeTeardown)
+	r.Setup(Setup)
+	r.Add(T1)
+	r.Teardown(Teardown)
 	r.Run()
 	if setupT == nil || teardownT == nil {
 		t.Fatalf("didn't ran the fixtures")
@@ -32,11 +32,11 @@ func Test_Fixtures(t *testing.T) {
 
 func Test_FixturesTMatches(t *testing.T) {
 	r := runner.NewTestsRunner[any](t)
-	r.Setup(ChangeSetup)
-	r.Add(ChangeRan)
-	r.Teardown(ChangeTeardown)
+	r.Setup(Setup)
+	r.Add(T1)
+	r.Teardown(Teardown)
 	r.Run()
-	if setupT != testT || teardownT != testT {
+	if setupT != t1 || teardownT != t1 {
 		t.Fatalf("t different for fixtures")
 	}
 }
@@ -54,21 +54,21 @@ func Test_Extras(tm *testing.T) {
 	r.Run()
 }
 
-var testT *testing.T = nil
-
-func ChangeRan(t *testing.T, extra any) {
-	testT = t
-}
-
 var setupT *testing.T = nil
 
-func ChangeSetup(t *testing.T) any {
+func Setup(t *testing.T) any {
 	setupT = t
 	return nil
 }
 
+var t1 *testing.T = nil
+
+func T1(t *testing.T, extra any) {
+	t1 = t
+}
+
 var teardownT *testing.T = nil
 
-func ChangeTeardown(t *testing.T) {
+func Teardown(t *testing.T) {
 	teardownT = t
 }
