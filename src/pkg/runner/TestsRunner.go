@@ -12,19 +12,19 @@ func NewTestsRunner[E any](t *testing.T) *TestsRunner[E] {
 		t:        t,
 		tests:    make([]TestFunc[E], 0, 10),
 		setup:    func(t *testing.T) E { return *new(E) },
-		teardown: func(t *testing.T) {},
+		teardown: func(t *testing.T, e E) {},
 	}
 }
 
 type TestFunc[E any] func(t *testing.T, extra E)
 type SetupFunc[E any] func(t *testing.T) E
-type TeardownFunc func(t *testing.T)
+type TeardownFunc[E any] func(t *testing.T, extra E)
 
 type TestsRunner[E any] struct {
 	t        *testing.T
 	tests    []TestFunc[E]
 	setup    SetupFunc[E]
-	teardown TeardownFunc
+	teardown TeardownFunc[E]
 }
 
 func (r *TestsRunner[E]) Add(f TestFunc[E]) {
@@ -36,7 +36,7 @@ func (r *TestsRunner[E]) Run() {
 		r.t.Run(funcName(tf), func(t *testing.T) {
 			extra := r.setup(t)
 			tf(t, extra)
-			r.teardown(t)
+			r.teardown(t, extra)
 		})
 	}
 }
@@ -45,7 +45,7 @@ func (r *TestsRunner[E]) Setup(f SetupFunc[E]) {
 	r.setup = f
 }
 
-func (r *TestsRunner[E]) Teardown(f TeardownFunc) {
+func (r *TestsRunner[E]) Teardown(f TeardownFunc[E]) {
 	r.teardown = f
 }
 
