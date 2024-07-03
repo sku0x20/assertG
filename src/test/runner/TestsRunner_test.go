@@ -10,54 +10,54 @@ func Test_Nop(t *testing.T) {
 	r.Run()
 }
 
-func Test_NoFixtures(t *testing.T) {
-	r := runner.NewTestsRunner[any](t)
-	r.Add(T1)
+func Test_NoFixtures(tm *testing.T) {
+	var t1t *testing.T = nil
+	t1 := func(t *testing.T, extra any) {
+		t1t = t
+	}
+	r := runner.NewTestsRunner[any](tm)
+	r.Add(t1)
 	r.Run()
-	if t1 == nil {
-		t.Fatalf("didn't ran the tests")
+	if t1t == nil {
+		tm.Fatalf("didn't ran the tests")
 	}
 }
 
-func Test_Fixtures(t *testing.T) {
-	r := runner.NewTestsRunner[any](t)
-	r.Setup(Setup)
-	r.Add(T1)
-	r.Teardown(Teardown)
+func Test_Fixtures(tm *testing.T) {
+	var setupT *testing.T = nil
+	var teardownT *testing.T = nil
+	var t1t *testing.T = nil
+	setup := func(t *testing.T) any {
+		setupT = t
+		return nil
+	}
+	teardown := func(t *testing.T) {
+		teardownT = t
+	}
+	t1 := func(t *testing.T, extra any) {
+		t1t = t
+	}
+	r := runner.NewTestsRunner[any](tm)
+	r.Setup(setup)
+	r.Add(t1)
+	r.Teardown(teardown)
 	r.Run()
-	if setupT != t1 || teardownT != t1 {
-		t.Fatalf("t different for fixtures")
+	if setupT != t1t || teardownT != t1t {
+		tm.Fatalf("t different for fixtures")
 	}
 }
 
 func Test_Extras(tm *testing.T) {
-	r := runner.NewTestsRunner[string](tm)
-	r.Setup(func(ts *testing.T) string {
+	setup := func(ts *testing.T) string {
 		return "some value"
-	})
-	r.Add(func(tr *testing.T, extra string) {
+	}
+	t1 := func(t1t *testing.T, extra string) {
 		if extra != "some value" {
-			tr.Fatalf("wrong value, expected \"some value\", got \"%s\"", extra)
+			t1t.Fatalf("wrong value, expected \"some value\", got \"%s\"", extra)
 		}
-	})
+	}
+	r := runner.NewTestsRunner[string](tm)
+	r.Setup(setup)
+	r.Add(t1)
 	r.Run()
-}
-
-var setupT *testing.T = nil
-
-func Setup(t *testing.T) any {
-	setupT = t
-	return nil
-}
-
-var t1 *testing.T = nil
-
-func T1(t *testing.T, extra any) {
-	t1 = t
-}
-
-var teardownT *testing.T = nil
-
-func Teardown(t *testing.T) {
-	teardownT = t
 }
