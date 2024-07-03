@@ -25,17 +25,6 @@ func Test_Fixtures(t *testing.T) {
 	r.Add(T1)
 	r.Teardown(Teardown)
 	r.Run()
-	if setupT == nil || teardownT == nil {
-		t.Fatalf("didn't ran the fixtures")
-	}
-}
-
-func Test_FixturesTMatches(t *testing.T) {
-	r := runner.NewTestsRunner[any](t)
-	r.Setup(Setup)
-	r.Add(T1)
-	r.Teardown(Teardown)
-	r.Run()
 	if setupT != t1 || teardownT != t1 {
 		t.Fatalf("t different for fixtures")
 	}
