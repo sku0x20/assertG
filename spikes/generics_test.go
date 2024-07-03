@@ -92,3 +92,16 @@ func Test_any(t *testing.T) {
 	t.Logf("%d\n", c)
 	t.Logf("%v\n", c)
 }
+
+type x interface {
+	s()
+}
+
+type Z[T x] struct {
+}
+
+func Test_genericsNil(t *testing.T) {
+	var z *Z[x]
+	z = nil
+	t.Logf("%v", z)
+}
