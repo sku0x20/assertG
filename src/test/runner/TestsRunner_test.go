@@ -41,7 +41,7 @@ func Test_FixturesTMatches(t *testing.T) {
 	}
 }
 
-func Test_PassingExtras(tm *testing.T) {
+func Test_Extras(tm *testing.T) {
 	r := runner.NewTestsRunner[string](tm)
 	r.Setup(func(ts *testing.T) string {
 		return "some value"
