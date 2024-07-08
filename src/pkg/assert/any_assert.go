@@ -1,8 +1,8 @@
 package assert
 
 import (
-	"assertG/src/pkg"
-	"assertG/src/pkg/asserter"
+	"github.com/sku0x20/assertG/src/pkg"
+	"github.com/sku0x20/assertG/src/pkg/asserter"
 )
 
 func ThatAny(actual any) *asserter.AnyAsserter {

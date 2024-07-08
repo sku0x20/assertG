@@ -1,9 +1,9 @@
 package asserter
 
 import (
-	"assertG/src/pkg"
-	"assertG/src/pkg/message"
-	"assertG/src/pkg/message/verbs"
+	"github.com/sku0x20/assertG/src/pkg"
+	"github.com/sku0x20/assertG/src/pkg/message"
+	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"strings"
 )
 

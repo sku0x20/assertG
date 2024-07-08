@@ -1,7 +1,7 @@
 package message
 
 import (
-	"assertG/src/pkg/message"
+	"github.com/sku0x20/assertG/src/pkg/message"
 	"testing"
 )
 

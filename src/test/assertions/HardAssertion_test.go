@@ -1,10 +1,10 @@
 package assertions
 
 import (
-	. "assertG/src/pkg/assertions"
-	"assertG/src/pkg/message"
-	"assertG/src/pkg/message/verbs"
-	. "assertG/src/test/types"
+	. "github.com/sku0x20/assertG/src/pkg/assertions"
+	"github.com/sku0x20/assertG/src/pkg/message"
+	"github.com/sku0x20/assertG/src/pkg/message/verbs"
+	. "github.com/sku0x20/assertG/src/test/types"
 	"testing"
 )
 

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"assertG/src/pkg"
+	"github.com/sku0x20/assertG/src/pkg"
 	"testing"
 )
 

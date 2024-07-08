@@ -1,9 +1,9 @@
 package assert
 
 import (
-	"assertG/src/pkg"
-	"assertG/src/pkg/assert"
-	"assertG/src/pkg/asserter"
+	"github.com/sku0x20/assertG/src/pkg"
+	"github.com/sku0x20/assertG/src/pkg/assert"
+	"github.com/sku0x20/assertG/src/pkg/asserter"
 	"testing"
 )
 

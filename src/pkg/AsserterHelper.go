@@ -1,8 +1,8 @@
 package pkg
 
 import (
-	"assertG/src/pkg/message"
-	"assertG/src/pkg/types"
+	"github.com/sku0x20/assertG/src/pkg/message"
+	"github.com/sku0x20/assertG/src/pkg/types"
 )
 
 type AsserterHelper struct {

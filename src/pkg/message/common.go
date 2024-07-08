@@ -1,6 +1,6 @@
 package message
 
-import "assertG/src/pkg/message/verbs"
+import "github.com/sku0x20/assertG/src/pkg/message/verbs"
 
 func Expected() *Message {
 	return NewMessage().
