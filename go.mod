@@ -1,4 +1,4 @@
-module assertG
+module github.com/sku0x20/assertG
 
 go 1.22
 
