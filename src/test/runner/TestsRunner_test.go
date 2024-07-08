@@ -68,6 +68,11 @@ func Test_Extra(tm *testing.T) {
 	r.Run()
 }
 
+// teardownCalledEvenIfPanic
+// teardownCalledEvenIfFatal
+
+// support for one time setup and teardown
+
 // Usage
 func Test_TestRunner(t *testing.T) {
 	r := runner.NewTestsRunner[string](t)
