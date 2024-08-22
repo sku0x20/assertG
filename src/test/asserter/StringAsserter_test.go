@@ -3,12 +3,12 @@ package asserter
 import (
 	"github.com/sku0x20/assertG/src/pkg"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/test/types"
+	"github.com/sku0x20/assertG/src/test/api"
 	"testing"
 )
 
 func TestStringEquals(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
 	sa := asserter.NewStringAsserter(h)
 	sa = sa.IsEqualTo("other-string")
@@ -19,7 +19,7 @@ func TestStringEquals(t *testing.T) {
 }
 
 func TestStringNotEquals(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
 	sa := asserter.NewStringAsserter(h)
 	sa = sa.IsNotEqualTo("some-string")
@@ -30,7 +30,7 @@ func TestStringNotEquals(t *testing.T) {
 }
 
 func TestContains(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
 	sa := asserter.NewStringAsserter(h)
 	sa = sa.Contains("other")
@@ -41,7 +41,7 @@ func TestContains(t *testing.T) {
 }
 
 func TestNotContains(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
 	sa := asserter.NewStringAsserter(h)
 	sa = sa.NotContains("some")
@@ -52,7 +52,7 @@ func TestNotContains(t *testing.T) {
 }
 
 func TestLength(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
 	sa := asserter.NewStringAsserter(h)
 	sa = sa.HasLength(8)

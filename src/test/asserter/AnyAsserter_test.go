@@ -3,12 +3,12 @@ package asserter
 import (
 	"github.com/sku0x20/assertG/src/pkg"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/test/types"
+	"github.com/sku0x20/assertG/src/test/api"
 	"testing"
 )
 
 func TestAnyEquals(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, 10)
 	ga := asserter.NewAnyAsserter(h)
 	ga.IsEqualTo(30)
@@ -19,9 +19,9 @@ func TestAnyEquals(t *testing.T) {
 }
 
 func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
-	ft := types.NewFakeT(t)
-	equalFalse := &types.FakeEquals{false}
-	equalTrue := &types.FakeEquals{true}
+	ft := api.NewFakeT(t)
+	equalFalse := &api.FakeEquals{false}
+	equalTrue := &api.FakeEquals{true}
 	h := pkg.NewAssertHelper(ft, equalFalse)
 	ga1 := asserter.NewAnyAsserter(h)
 	ga1.IsEqualTo(equalTrue)
@@ -34,7 +34,7 @@ func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
 }
 
 func TestAnyNotEquals(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, 10)
 	ga := asserter.NewAnyAsserter(h)
 	ga.IsNotEqualTo(10)
@@ -45,9 +45,9 @@ func TestAnyNotEquals(t *testing.T) {
 }
 
 func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
-	ft := types.NewFakeT(t)
-	fE1 := &types.FakeEquals{false}
-	fE2 := &types.FakeEquals{true}
+	ft := api.NewFakeT(t)
+	fE1 := &api.FakeEquals{false}
+	fE2 := &api.FakeEquals{true}
 	h := pkg.NewAssertHelper(ft, fE2)
 	ga1 := asserter.NewAnyAsserter(h)
 	ga1.IsNotEqualTo(fE1)
@@ -60,7 +60,7 @@ func TestAnyNotEqualsCallsEqualsIfPossible(t *testing.T) {
 }
 
 func TestAnyNil(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	actual := 10
 	h := pkg.NewAssertHelper(ft, &actual)
 	asserter.NewAnyAsserter(h).IsNil()
@@ -72,7 +72,7 @@ func TestAnyNil(t *testing.T) {
 }
 
 func TestAnyNotNil(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, nil)
 	asserter.NewAnyAsserter(h).IsNotNil()
 	ft.AssertIsFatal()

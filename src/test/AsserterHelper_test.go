@@ -2,7 +2,7 @@ package test
 
 import (
 	"github.com/sku0x20/assertG/src/pkg"
-	"github.com/sku0x20/assertG/src/test/types"
+	"github.com/sku0x20/assertG/src/test/api"
 	"testing"
 )
 
@@ -16,7 +16,7 @@ func TestFormatter(t *testing.T) {
 }
 
 func TestError(t *testing.T) {
-	ft := types.NewFakeT(t)
+	ft := api.NewFakeT(t)
 	helper := pkg.NewAssertHelper(ft, 10)
 	formatter := helper.Formatter().
 		Value("10")
