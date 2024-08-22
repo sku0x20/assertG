@@ -5,29 +5,44 @@ import (
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	. "github.com/sku0x20/assertG/src/test/api"
+	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func Test_PrintsMsg(t *testing.T) {
-	ft, ha := createInstances(t)
-	msg := message.Expected().
-		Verb(verbs.ToBeNil)
-	ha.FailWith(msg)
-	if ft.Error != msg.ToString() {
-		t.Fatalf("expected '%s', got '%s'", msg.ToString(), ft.Error)
+func Test_HardAssertion(tm *testing.T) {
+	r := runner.NewTestsRunner[*instances](tm)
+	r.Setup(setup)
+	r.Add(printsMsg)
+	r.Add(existsOnFailure)
+	r.Run()
+}
+
+func setup(t *testing.T) *instances {
+	fakeT := NewFakeT(t)
+	ha := NewHardAssertion(fakeT)
+	return &instances{
+		fakeT,
+		ha,
 	}
 }
 
-func Test_ExistsOnFailure(t *testing.T) {
-	ft, ha := createInstances(t)
+func printsMsg(t *testing.T, i *instances) {
 	msg := message.Expected().
 		Verb(verbs.ToBeNil)
-	ha.FailWith(msg)
-	ft.AssertIsFatal()
+	i.ha.FailWith(msg)
+	if i.ft.Error != msg.ToString() {
+		t.Fatalf("expected '%s', got '%s'", msg.ToString(), i.ft.Error)
+	}
 }
 
-func createInstances(t *testing.T) (*FakeT, *HardAssertion) {
-	ft := NewFakeT(t)
-	ha := NewHardAssertion(ft)
-	return ft, ha
+func existsOnFailure(t *testing.T, i *instances) {
+	msg := message.Expected().
+		Verb(verbs.ToBeNil)
+	i.ha.FailWith(msg)
+	i.ft.AssertIsFatal()
+}
+
+type instances struct {
+	ft *FakeT
+	ha *HardAssertion
 }
