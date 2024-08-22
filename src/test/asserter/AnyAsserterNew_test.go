@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-func Test_AnyAsserterNew(t *testing.T) {
-	r := runner.NewTestsRunner[any](t)
-	r.Setup(func(t2 *testing.T) any { return nil })
-	r.Teardown(func(t2 *testing.T, e any) {})
+func Test_AnyAsserterNew(tm *testing.T) {
+	r := runner.NewTestsRunner[any](tm)
+	r.Setup(func(t *testing.T) any { return nil })
+	r.Teardown(func(t *testing.T, e any) {})
 	r.Add(PrintT)
 	r.Run()
 }
