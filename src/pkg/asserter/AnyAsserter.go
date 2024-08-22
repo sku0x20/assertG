@@ -2,9 +2,9 @@ package asserter
 
 import (
 	"github.com/sku0x20/assertG/src/pkg"
+	"github.com/sku0x20/assertG/src/pkg/api"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
-	"github.com/sku0x20/assertG/src/pkg/types"
 	"reflect"
 )
 
@@ -55,7 +55,7 @@ func (anyA *AnyAsserter) IsNotNil() *AnyAsserter {
 }
 
 func (anyA *AnyAsserter) isEqual(expected any) bool {
-	eqT, ok := anyA.actual().(types.Equals)
+	eqT, ok := anyA.actual().(api.Equals)
 	if ok {
 		return eqT.Equals(expected)
 	}

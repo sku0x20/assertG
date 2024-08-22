@@ -1,16 +1,16 @@
 package pkg
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/types"
+	"github.com/sku0x20/assertG/src/pkg/api"
 )
 
 var th = &tHolder{t: nil}
 
-func RegisterT(t types.T) {
+func RegisterT(t api.T) {
 	th.t = t
 }
 
-func GetT() types.T {
+func GetT() api.T {
 	if th.t == nil {
 		panic("t is not set")
 	}
@@ -21,7 +21,7 @@ func CleanT() {
 	th.t = nil
 }
 
-func EnableAsserts(t types.T) func() {
+func EnableAsserts(t api.T) func() {
 	RegisterT(t)
 	return func() {
 		CleanT()
@@ -29,5 +29,5 @@ func EnableAsserts(t types.T) func() {
 }
 
 type tHolder struct {
-	t types.T
+	t api.T
 }

@@ -1,16 +1,16 @@
 package assertions
 
 import (
+	"github.com/sku0x20/assertG/src/pkg/api"
 	"github.com/sku0x20/assertG/src/pkg/message"
-	"github.com/sku0x20/assertG/src/pkg/types"
 )
 
-func NewHardAssertion(t types.T) *HardAssertion {
+func NewHardAssertion(t api.T) *HardAssertion {
 	return &HardAssertion{t: t}
 }
 
 type HardAssertion struct {
-	t types.T
+	t api.T
 }
 
 func (h *HardAssertion) FailWith(msg *message.Message) {
