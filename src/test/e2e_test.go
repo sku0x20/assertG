@@ -15,7 +15,7 @@ func Test_WithoutRunner(t *testing.T) {
 func Test_WithRunner(tm *testing.T) {
 	r := runner.NewTestsRunner[any](tm)
 	r.Setup(func(t *testing.T) any {
-		defer pkg.EnableAsserts(tm)
+		defer pkg.EnableAsserts(tm)()
 		return nil
 	})
 	r.Teardown(func(t *testing.T, extra any) {
