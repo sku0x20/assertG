@@ -7,7 +7,8 @@ import (
 )
 
 func TestAssertThat_String(t *testing.T) {
-	var a any = assert.AssertThatString("string assert")
+	c := assert.NewCaptureT(t)
+	var a any = c.AssertThatString("string assert")
 	casted, ok := a.(*asserter.StringAsserter)
 	if casted == nil {
 		t.Fatalf("casted is nil")
@@ -18,7 +19,8 @@ func TestAssertThat_String(t *testing.T) {
 }
 
 func TestThat_String(t *testing.T) {
-	var a any = assert.ThatString("string assert")
+	c := assert.NewCaptureT(t)
+	var a any = c.ThatString("string assert")
 	casted, ok := a.(*asserter.StringAsserter)
 	if casted == nil {
 		t.Fatalf("casted is nil")

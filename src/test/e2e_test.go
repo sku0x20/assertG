@@ -6,7 +6,8 @@ import (
 )
 
 func Test_WithoutRunner(t *testing.T) {
-	assert.ThatAny(10).IsNotNil().IsEqualTo(10)
+	c := assert.NewCaptureT(t)
+	c.ThatAny(10).IsNotNil().IsEqualTo(10)
 }
 
 /*
