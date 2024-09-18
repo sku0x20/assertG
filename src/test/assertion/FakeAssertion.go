@@ -1,4 +1,4 @@
-package assertions
+package assertion
 
 func NewFakeAssertion() *FakeAssertion {
 	return &FakeAssertion{}

@@ -1,4 +1,4 @@
-package assertions
+package assertion
 
 import "github.com/sku0x20/assertG/src/pkg/message"
 

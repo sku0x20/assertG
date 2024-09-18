@@ -1,7 +1,7 @@
-package assertions
+package assertion
 
 import (
-	. "github.com/sku0x20/assertG/src/pkg/assertions"
+	. "github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	. "github.com/sku0x20/assertG/src/test/api"
@@ -18,7 +18,7 @@ func Test_HardAssertion(tm *testing.T) {
 
 func initE(t *testing.T) *instances {
 	fakeT := NewFakeT(t)
-	ha := NewHardAssertion(fakeT)
+	ha := Hard(fakeT)
 	return &instances{
 		fakeT,
 		ha,

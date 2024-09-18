@@ -1,11 +1,11 @@
-package assertions
+package assertion
 
 import (
 	"github.com/sku0x20/assertG/src/pkg/api"
 	"github.com/sku0x20/assertG/src/pkg/message"
 )
 
-func NewHardAssertion(t api.T) *HardAssertion {
+func Hard(t api.T) *HardAssertion {
 	return &HardAssertion{t: t}
 }
 
