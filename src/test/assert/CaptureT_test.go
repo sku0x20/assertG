@@ -7,7 +7,7 @@ import (
 )
 
 func Test_CaptureT(tm *testing.T) {
-	r := runner.NewTestsRunner[any](tm)
+	r := runner.NewTestsRunnerEmptyInit[any](tm)
 	r.Add(capturesT)
 	r.Run()
 }

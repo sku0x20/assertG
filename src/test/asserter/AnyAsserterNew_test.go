@@ -6,8 +6,8 @@ import (
 )
 
 func Test_AnyAsserterNew(tm *testing.T) {
-	r := runner.NewTestsRunner[any](tm)
-	r.Setup(func(t *testing.T) any { return nil })
+	r := runner.NewTestsRunnerEmptyInit[any](tm)
+	r.Setup(func(t *testing.T, e any) {})
 	r.Teardown(func(t *testing.T, e any) {})
 	r.Add(PrintT)
 	r.Run()

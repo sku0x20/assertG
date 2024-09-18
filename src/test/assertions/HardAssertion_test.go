@@ -10,14 +10,13 @@ import (
 )
 
 func Test_HardAssertion(tm *testing.T) {
-	r := runner.NewTestsRunner[*instances](tm)
-	r.Setup(setup)
+	r := runner.NewTestsRunner[*instances](tm, initE)
 	r.Add(printsMsg)
 	r.Add(existsOnFailure)
 	r.Run()
 }
 
-func setup(t *testing.T) *instances {
+func initE(t *testing.T) *instances {
 	fakeT := NewFakeT(t)
 	ha := NewHardAssertion(fakeT)
 	return &instances{
