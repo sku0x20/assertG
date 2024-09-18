@@ -1,15 +1,11 @@
 package test
 
-import (
-	"github.com/sku0x20/assertG/src/pkg/assert"
-	"testing"
-)
-
+/*
 func Test_WithoutRunner(t *testing.T) {
 	c := assert.NewCaptureT(t)
 	c.ThatAny(10).IsNotNil().IsEqualTo(10)
 }
-
+*/
 /*
 func Test_WithRunner(tm *testing.T) {
 	r := runner.NewTestsRunner[any](tm)

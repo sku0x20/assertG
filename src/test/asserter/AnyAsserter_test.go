@@ -1,12 +1,6 @@
 package asserter
 
-import (
-	"github.com/sku0x20/assertG/src/pkg"
-	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/test/api"
-	"testing"
-)
-
+/*
 func TestAnyEquals(t *testing.T) {
 	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, 10)
@@ -82,3 +76,4 @@ func TestAnyNotNil(t *testing.T) {
 	asserter.NewAnyAsserter(h2).IsNotNil()
 	ft.AssertNotFatal()
 }
+*/

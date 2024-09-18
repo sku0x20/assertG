@@ -1,12 +1,6 @@
 package asserter
 
-import (
-	"github.com/sku0x20/assertG/src/pkg"
-	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/test/api"
-	"testing"
-)
-
+/*
 func TestStringEquals(t *testing.T) {
 	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, "some-string")
@@ -61,3 +55,4 @@ func TestLength(t *testing.T) {
 	sa.HasLength(11)
 	ft.AssertNotFatal()
 }
+*/

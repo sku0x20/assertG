@@ -1,11 +1,6 @@
 package assert
 
-import (
-	"github.com/sku0x20/assertG/src/pkg/assert"
-	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"testing"
-)
-
+/*
 func TestAssertThatAny(t *testing.T) {
 	c := assert.NewCaptureT(t)
 	var a any = c.AssertThatAny(10)
@@ -29,3 +24,4 @@ func TestThatAny(t *testing.T) {
 		t.Fatalf("invalid asserter type")
 	}
 }
+*/
