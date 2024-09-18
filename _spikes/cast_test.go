@@ -1,4 +1,4 @@
-package spikes
+package _spikes
 
 import "testing"
 
