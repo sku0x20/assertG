@@ -15,9 +15,6 @@ func Test_Hard(t *testing.T) {
 	} else {
 		output := spawnAndRun(funcName())
 		lines := splitAndTrimLines(output)
-		if len(lines) == 8 {
-			t.Fatalf("printing `shouldn't be printed`")
-		}
 		if !strings.Contains(lines[3], "Expected") {
 			t.Fatalf("should print 'Expected'")
 		}
@@ -26,6 +23,11 @@ func Test_Hard(t *testing.T) {
 		}
 		if lines[5] != "FAIL" {
 			t.Fatalf("should have failed")
+		}
+		if len(lines) >= 8 {
+			if lines[7] == "shouldn't be printed" {
+				t.Fatalf("printing `shouldn't be printed`")
+			}
 		}
 	}
 }
