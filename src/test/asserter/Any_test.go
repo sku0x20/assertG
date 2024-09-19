@@ -8,6 +8,10 @@ import (
 	"testing"
 )
 
+func initE(t *testing.T) *assertion.Soft {
+	return assertion.NewSoft(t)
+}
+
 func Test_Any(t *testing.T) {
 	r := runner.NewTestsRunner[*assertion.Soft](t, initE)
 	r.Add(notEqual)
@@ -18,10 +22,6 @@ func Test_Any(t *testing.T) {
 	r.Add(notNilPass)
 	r.Add(notNilFail)
 	r.Run()
-}
-
-func initE(t *testing.T) *assertion.Soft {
-	return assertion.NewSoft(t)
 }
 
 func notEqual(t *testing.T, s *assertion.Soft) {
@@ -84,17 +84,3 @@ func notNilFail(t *testing.T, s *assertion.Soft) {
 		t.Fatalf("should have failed")
 	}
 }
-
-/*
-func TestAnyNotNil(t *testing.T) {
-	ft := api.NewFakeT(t)
-	h := pkg.NewAssertHelper(ft, nil)
-	asserter.NewAnyAsserter(h).IsNotNil()
-	ft.AssertIsFatal()
-	ft.Reset()
-	actual := 10
-	h2 := pkg.NewAssertHelper(ft, &actual)
-	asserter.NewAnyAsserter(h2).IsNotNil()
-	ft.AssertNotFatal()
-}
-*/
