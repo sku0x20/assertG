@@ -8,16 +8,16 @@ import (
 	"testing"
 )
 
-func Test_Any(t *testing.T) {
+func Test_String(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
-	r.Add(viaPackage_Any)
-	r.Add(viaVariable_Any)
+	r.Add(viaPackage_String)
+	r.Add(viaVariable_String)
 	r.Run()
 }
 
-func viaPackage_Any(t *testing.T, e any) {
-	var a any = assertP.ThatAny(assertion.NewSoft(t), "some val")
-	casted, ok := a.(*asserter.Any)
+func viaPackage_String(t *testing.T, e any) {
+	var a any = assertP.ThatString(assertion.NewSoft(t), "some val")
+	casted, ok := a.(*asserter.String)
 	if !ok {
 		t.Fatalf("unable to cast")
 	}
@@ -26,10 +26,10 @@ func viaPackage_Any(t *testing.T, e any) {
 	}
 }
 
-func viaVariable_Any(t *testing.T, e any) {
+func viaVariable_String(t *testing.T, e any) {
 	assert := assertP.NewAssert(assertion.NewSoft(t))
-	var a any = assert.ThatAny("some val")
-	casted, ok := a.(*asserter.Any)
+	var a any = assert.ThatString("some val")
+	casted, ok := a.(*asserter.String)
 	if !ok {
 		t.Fatalf("unable to cast")
 	}
