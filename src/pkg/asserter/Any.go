@@ -34,3 +34,23 @@ func (a *Any) IsEqualTo(val any) {
 		)
 	}
 }
+
+func (a *Any) IsNil() {
+	if a.e != nil {
+		a.a.FailWith(
+			message.Expected().
+				Value(a.e).
+				Verb(verbs.ToBeNil),
+		)
+	}
+}
+
+func (a *Any) IsNotNil() {
+	if a.e == nil {
+		a.a.FailWith(
+			message.Expected().
+				Value(a.e).
+				Verb(verbs.NotToBeNil),
+		)
+	}
+}

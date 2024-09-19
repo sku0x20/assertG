@@ -13,6 +13,10 @@ func Test_Any(t *testing.T) {
 	r.Add(notEqual)
 	r.Add(equal)
 	r.Add(implementsEqual)
+	r.Add(nilPass)
+	r.Add(nilFail)
+	r.Add(notNilPass)
+	r.Add(notNilFail)
 	r.Run()
 }
 
@@ -49,20 +53,39 @@ func implementsEqual(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-/*
-
-func TestAnyNil(t *testing.T) {
-	ft := api.NewFakeT(t)
-	actual := 10
-	h := pkg.NewAssertHelper(ft, &actual)
-	asserter.NewAnyAsserter(h).IsNil()
-	ft.AssertIsFatal()
-	ft.Reset()
-	h2 := pkg.NewAssertHelper(ft, nil)
-	asserter.NewAnyAsserter(h2).IsNil()
-	ft.AssertNotFatal()
+func nilPass(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, nil)
+	a.IsNil()
+	if s.Failed() {
+		t.Fatalf("should not have failed")
+	}
 }
 
+func nilFail(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, 10)
+	a.IsNil()
+	if !s.Failed() {
+		t.Fatalf("should have failed")
+	}
+}
+
+func notNilPass(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, 10)
+	a.IsNotNil()
+	if s.Failed() {
+		t.Fatalf("should not have failed")
+	}
+}
+
+func notNilFail(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, nil)
+	a.IsNotNil()
+	if !s.Failed() {
+		t.Fatalf("should have failed")
+	}
+}
+
+/*
 func TestAnyNotNil(t *testing.T) {
 	ft := api.NewFakeT(t)
 	h := pkg.NewAssertHelper(ft, nil)
