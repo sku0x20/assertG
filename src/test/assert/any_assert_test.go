@@ -11,11 +11,12 @@ import (
 func Test_Any(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
 	r.Add(viaPackage)
+	r.Add(viaVariable)
 	r.Run()
 }
 
 func viaPackage(t *testing.T, e any) {
-	var a any = assertP.ThatAny(assertion.NewFake())
+	var a any = assertP.ThatAny(assertion.NewFake(), "some val")
 	casted, ok := a.(*asserter.Any)
 	if !ok {
 		t.Fatalf("unable to cast")
@@ -25,15 +26,14 @@ func viaPackage(t *testing.T, e any) {
 	}
 }
 
-//
-//func TestThatAny(t *testing.T) {
-//	c := assert.NewCaptureT(t)
-//	var a any = c.ThatAny(10)
-//	casted, ok := a.(*asserter.AnyAsserter)
-//	if casted == nil {
-//		t.Fatalf("casted is nil")
-//	}
-//	if !ok {
-//		t.Fatalf("invalid asserter type")
-//	}
-//}
+func viaVariable(t *testing.T, e any) {
+	assert := assertP.NewAssert(assertion.NewFake())
+	var a any = assert.ThatAny("some val")
+	casted, ok := a.(*asserter.Any)
+	if !ok {
+		t.Fatalf("unable to cast")
+	}
+	if casted == nil {
+		t.Fatalf("casted is nil")
+	}
+}
