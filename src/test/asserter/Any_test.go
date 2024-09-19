@@ -27,8 +27,13 @@ func notEqual(t *testing.T, s *assertion.Soft) {
 }
 
 func equal(t *testing.T, s *assertion.Soft) {
-	a := asserter.NewAny(s, 30)
-	a.IsEqualTo(30)
+	type st struct {
+		s *string
+	}
+	s1 := "something"
+	s2 := "something"
+	a := asserter.NewAny(s, &st{&s1})
+	a.IsEqualTo(&st{&s2})
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
