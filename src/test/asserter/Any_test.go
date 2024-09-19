@@ -14,7 +14,7 @@ func Test_Any(t *testing.T) {
 }
 
 func initE(t *testing.T) *assertion.Fake {
-	return assertion.NewFake()
+	return assertion.NewFake(t)
 }
 
 func equalsFail(t *testing.T, f *assertion.Fake) {
