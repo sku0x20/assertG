@@ -16,7 +16,7 @@ func Test_Any(t *testing.T) {
 }
 
 func viaPackage(t *testing.T, e any) {
-	var a any = assertP.ThatAny(assertion.NewSoft(), "some val")
+	var a any = assertP.ThatAny(assertion.NewSoft(t), "some val")
 	casted, ok := a.(*asserter.Any)
 	if !ok {
 		t.Fatalf("unable to cast")
@@ -27,7 +27,7 @@ func viaPackage(t *testing.T, e any) {
 }
 
 func viaVariable(t *testing.T, e any) {
-	assert := assertP.NewAssert(assertion.NewSoft())
+	assert := assertP.NewAssert(assertion.NewSoft(t))
 	var a any = assert.ThatAny("some val")
 	casted, ok := a.(*asserter.Any)
 	if !ok {

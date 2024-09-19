@@ -8,7 +8,7 @@ import (
 
 func Test_Assert(t *testing.T) {
 	var assert any
-	assert = assertP.NewAssert(assertion.NewSoft())
+	assert = assertP.NewAssert(assertion.NewSoft(t))
 	casted, ok := assert.(*assertP.Assert)
 	if !ok {
 		t.Fatalf("err")
