@@ -3,15 +3,22 @@ package message
 import (
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
+	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func Test_Expected(t *testing.T) {
-	expected := message.Expected()
+func Test_Common(t *testing.T) {
+	r := runner.NewTestsRunnerEmptyInit[any](t)
+	r.Add(expected)
+	r.Run()
+}
+
+func expected(t *testing.T, _ any) {
+	e := message.Expected()
 	msg := message.NewMessage().
 		NewLine().
 		Verb(verbs.Expected)
-	if expected.ToString() != msg.ToString() {
-		t.Errorf("Expected: %s, got: %s", expected.ToString(), msg.ToString())
+	if e.ToString() != msg.ToString() {
+		t.Fatalf("Expected: %s, got: %s", e.ToString(), msg.ToString())
 	}
 }

@@ -2,10 +2,19 @@ package message
 
 import (
 	"github.com/sku0x20/assertG/src/pkg/message"
+	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
 func Test_Message(t *testing.T) {
+	r := runner.NewTestsRunnerEmptyInit[any](t)
+	r.Add(fullMessage)
+	r.Add(onlyVerbs)
+	r.Add(onlyValues)
+	r.Run()
+}
+
+func fullMessage(t *testing.T, _ any) {
 	str := message.NewMessage().
 		NewLine().
 		Verb("Expected").
@@ -17,7 +26,7 @@ func Test_Message(t *testing.T) {
 		Verb("ButWas").
 		Value("12").
 		ToString()
-	expected := `
+	e := `
 Expected
 a
 ToEqual
@@ -27,39 +36,39 @@ ToHaveLength
 ButWas
 12
 `
-	if str != expected {
+	if str != e {
 		t.Fatalf("failure; msg = %s", str)
 	}
 }
 
-func Test_OnlyVerbs(t *testing.T) {
+func onlyVerbs(t *testing.T, _ any) {
 	str := message.NewMessage().
 		NewLine().
 		Verb("Expected").
 		Verb("ToBeNil").
 		Verb("ButWas").
 		ToString()
-	expected := `
+	e := `
 Expected
 ToBeNil
 ButWas
 `
-	if str != expected {
+	if str != e {
 		t.Fatalf("failure; msg = %s", str)
 	}
 }
 
-func Test_OnlyValues(t *testing.T) {
+func onlyValues(t *testing.T, _ any) {
 	str := message.NewMessage().
 		NewLine().
 		Value("a").
 		Value("b").
 		ToString()
-	expected := `
+	e := `
 a
 b
 `
-	if str != expected {
+	if str != e {
 		t.Fatalf("failure; msg = %s", str)
 	}
 }
