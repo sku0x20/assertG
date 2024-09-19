@@ -1,16 +1,32 @@
 package asserter
 
-/*
-func TestAnyEquals(t *testing.T) {
-	ft := api.NewFakeT(t)
-	h := pkg.NewAssertHelper(ft, 10)
-	ga := asserter.NewAnyAsserter(h)
-	ga.IsEqualTo(30)
-	ft.AssertIsFatal()
-	ft.Reset()
-	ga.IsEqualTo(10)
-	ft.AssertNotFatal()
+import (
+	"github.com/sku0x20/assertG/src/pkg/asserter"
+	"github.com/sku0x20/assertG/src/test/assertion"
+	"github.com/sku0x20/gRunner/src/pkg/runner"
+	"testing"
+)
+
+func Test_Any(t *testing.T) {
+	r := runner.NewTestsRunner[*assertion.Fake](t, initE)
+	r.Add(equalsFail)
+	r.Run()
 }
+
+func initE(t *testing.T) *assertion.Fake {
+	return assertion.NewFake()
+}
+
+func equalsFail(t *testing.T, f *assertion.Fake) {
+	a := asserter.NewAny(f, 30)
+	a.IsEqualTo("something")
+	if !f.Failed() {
+		t.Fatalf("should have failed")
+	}
+}
+
+/*
+
 
 func TestAnyEqualsCallsEqualsIfPossible(t *testing.T) {
 	ft := api.NewFakeT(t)

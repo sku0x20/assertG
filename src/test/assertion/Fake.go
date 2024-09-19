@@ -9,9 +9,13 @@ func NewFake() *Fake {
 }
 
 type Fake struct {
+	failed bool
 }
 
 func (f *Fake) FailWith(msg *message.Message) {
-	//TODO implement me
-	panic("implement me")
+	f.failed = true
+}
+
+func (f *Fake) Failed() bool {
+	return f.failed
 }

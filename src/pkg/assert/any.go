@@ -10,5 +10,5 @@ func (a *Assert) ThatAny(value any) *asserter.Any {
 }
 
 func ThatAny(a assertion.Assertion, value any) *asserter.Any {
-	return asserter.NewAny(a)
+	return asserter.NewAny(a, value)
 }
