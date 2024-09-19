@@ -17,7 +17,7 @@ type Any struct {
 	e any
 }
 
-func (a *Any) IsEqualTo(val any) {
+func (a *Any) IsEqualTo(val any) *Any {
 	casted, ok := a.e.(api.Equal)
 	var equal bool
 	if ok {
@@ -33,9 +33,10 @@ func (a *Any) IsEqualTo(val any) {
 				Value(val),
 		)
 	}
+	return a
 }
 
-func (a *Any) IsNil() {
+func (a *Any) IsNil() *Any {
 	if a.e != nil {
 		a.a.FailWith(
 			message.Expected().
@@ -43,9 +44,10 @@ func (a *Any) IsNil() {
 				Verb(verbs.ToBeNil),
 		)
 	}
+	return a
 }
 
-func (a *Any) IsNotNil() {
+func (a *Any) IsNotNil() *Any {
 	if a.e == nil {
 		a.a.FailWith(
 			message.Expected().
@@ -53,4 +55,5 @@ func (a *Any) IsNotNil() {
 				Verb(verbs.NotToBeNil),
 		)
 	}
+	return a
 }
