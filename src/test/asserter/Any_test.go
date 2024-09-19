@@ -15,8 +15,8 @@ func init_Any(t *testing.T) *assertion.Soft {
 
 func Test_Any(t *testing.T) {
 	r := runner.NewTestsRunner[*assertion.Soft](t, init_Any)
-	r.Add(notEqual_Any)
-	r.Add(equal_Any)
+	r.Add(equalFail_Any)
+	r.Add(equalPass_Any)
 	r.Add(implementsEqual_Any)
 	r.Add(nilPass_Any)
 	r.Add(nilFail_Any)
@@ -26,7 +26,7 @@ func Test_Any(t *testing.T) {
 }
 
 //goland:noinspection GoSnakeCaseUsage
-func notEqual_Any(t *testing.T, s *assertion.Soft) {
+func equalFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 30)
 	a.IsEqualTo("something")
 	if !s.Failed() {
@@ -35,7 +35,7 @@ func notEqual_Any(t *testing.T, s *assertion.Soft) {
 }
 
 //goland:noinspection GoSnakeCaseUsage
-func equal_Any(t *testing.T, s *assertion.Soft) {
+func equalPass_Any(t *testing.T, s *assertion.Soft) {
 	type st struct {
 		s *string
 	}
