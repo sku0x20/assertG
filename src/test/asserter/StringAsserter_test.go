@@ -7,7 +7,6 @@ import (
 	"testing"
 )
 
-//goland:noinspection GoSnakeCaseUsage
 func init_String(t *testing.T) *assertion.Soft {
 	return assertion.NewSoft(t)
 }
@@ -25,7 +24,6 @@ func Test_String(t *testing.T) {
 	r.Run()
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func equalPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.IsEqualTo("some val")
@@ -34,7 +32,6 @@ func equalPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func equalFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.IsEqualTo("other val")
@@ -43,7 +40,6 @@ func equalFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func containsPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.Contains("val")
@@ -52,7 +48,6 @@ func containsPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func containsFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.Contains("other")
@@ -61,7 +56,6 @@ func containsFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func notContainsPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.NotContains("other")
@@ -70,7 +64,6 @@ func notContainsPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func notContainsFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.NotContains("some")
@@ -79,7 +72,6 @@ func notContainsFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.HasLength(8)
@@ -88,7 +80,6 @@ func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func hasLengthFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
 	a.HasLength(10)

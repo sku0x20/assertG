@@ -8,7 +8,6 @@ import (
 	"testing"
 )
 
-//goland:noinspection GoSnakeCaseUsage
 func init_Any(t *testing.T) *assertion.Soft {
 	return assertion.NewSoft(t)
 }
@@ -25,7 +24,6 @@ func Test_Any(t *testing.T) {
 	r.Run()
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func equalFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 30)
 	a.IsEqualTo("something")
@@ -34,7 +32,6 @@ func equalFail_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func equalPass_Any(t *testing.T, s *assertion.Soft) {
 	type st struct {
 		s *string
@@ -48,7 +45,6 @@ func equalPass_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func implementsEqual_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, api.NewFakeEqual(false))
 	a.IsEqualTo(api.NewFakeEqual(false))
@@ -57,7 +53,6 @@ func implementsEqual_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func nilPass_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, nil)
 	a.IsNil()
@@ -66,7 +61,6 @@ func nilPass_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func nilFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 10)
 	a.IsNil()
@@ -75,7 +69,6 @@ func nilFail_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func notNilPass_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 10)
 	a.IsNotNil()
@@ -84,7 +77,6 @@ func notNilPass_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-//goland:noinspection GoSnakeCaseUsage
 func notNilFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, nil)
 	a.IsNotNil()
