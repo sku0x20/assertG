@@ -16,7 +16,7 @@ type String struct {
 	e string
 }
 
-func (s *String) IsEqualTo(val string) {
+func (s *String) IsEqualTo(val string) *String {
 	if s.e != val {
 		s.a.FailWith(
 			message.Expected().
@@ -25,9 +25,10 @@ func (s *String) IsEqualTo(val string) {
 				Value(val),
 		)
 	}
+	return s
 }
 
-func (s *String) Contains(val string) {
+func (s *String) Contains(val string) *String {
 	if !strings.Contains(s.e, val) {
 		s.a.FailWith(
 			message.Expected().
@@ -36,9 +37,10 @@ func (s *String) Contains(val string) {
 				Value(val),
 		)
 	}
+	return s
 }
 
-func (s *String) NotContains(val string) {
+func (s *String) NotContains(val string) *String {
 	if strings.Contains(s.e, val) {
 		s.a.FailWith(
 			message.Expected().
@@ -47,9 +49,10 @@ func (s *String) NotContains(val string) {
 				Value(val),
 		)
 	}
+	return s
 }
 
-func (s *String) HasLength(l int) {
+func (s *String) HasLength(l int) *String {
 	if len(s.e) != l {
 		s.a.FailWith(
 			message.Expected().
@@ -60,4 +63,5 @@ func (s *String) HasLength(l int) {
 				Value(len(s.e)),
 		)
 	}
+	return s
 }

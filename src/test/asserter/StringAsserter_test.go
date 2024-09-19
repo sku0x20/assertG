@@ -26,7 +26,7 @@ func Test_String(t *testing.T) {
 
 func equalPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.IsEqualTo("some val")
+	a = a.IsEqualTo("some val")
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -34,7 +34,7 @@ func equalPass_String(t *testing.T, s *assertion.Soft) {
 
 func equalFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.IsEqualTo("other val")
+	a = a.IsEqualTo("other val")
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -42,7 +42,7 @@ func equalFail_String(t *testing.T, s *assertion.Soft) {
 
 func containsPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.Contains("val")
+	a = a.Contains("val")
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -50,7 +50,7 @@ func containsPass_String(t *testing.T, s *assertion.Soft) {
 
 func containsFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.Contains("other")
+	a = a.Contains("other")
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -58,7 +58,7 @@ func containsFail_String(t *testing.T, s *assertion.Soft) {
 
 func notContainsPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.NotContains("other")
+	a = a.NotContains("other")
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -66,7 +66,7 @@ func notContainsPass_String(t *testing.T, s *assertion.Soft) {
 
 func notContainsFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.NotContains("some")
+	a = a.NotContains("some")
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -74,7 +74,7 @@ func notContainsFail_String(t *testing.T, s *assertion.Soft) {
 
 func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.HasLength(8)
+	a = a.HasLength(8)
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -82,7 +82,7 @@ func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
 
 func hasLengthFail_String(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewString(s, "some val")
-	a.HasLength(10)
+	a = a.HasLength(10)
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}

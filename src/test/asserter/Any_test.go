@@ -26,7 +26,7 @@ func Test_Any(t *testing.T) {
 
 func equalFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 30)
-	a.IsEqualTo("something")
+	a = a.IsEqualTo("something")
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -39,7 +39,7 @@ func equalPass_Any(t *testing.T, s *assertion.Soft) {
 	s1 := "something"
 	s2 := "something"
 	a := asserter.NewAny(s, &st{&s1})
-	a.IsEqualTo(&st{&s2})
+	a = a.IsEqualTo(&st{&s2})
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -47,7 +47,7 @@ func equalPass_Any(t *testing.T, s *assertion.Soft) {
 
 func implementsEqual_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, api.NewFakeEqual(false))
-	a.IsEqualTo(api.NewFakeEqual(false))
+	a = a.IsEqualTo(api.NewFakeEqual(false))
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -55,7 +55,7 @@ func implementsEqual_Any(t *testing.T, s *assertion.Soft) {
 
 func nilPass_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, nil)
-	a.IsNil()
+	a = a.IsNil()
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -63,7 +63,7 @@ func nilPass_Any(t *testing.T, s *assertion.Soft) {
 
 func nilFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 10)
-	a.IsNil()
+	a = a.IsNil()
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
@@ -71,7 +71,7 @@ func nilFail_Any(t *testing.T, s *assertion.Soft) {
 
 func notNilPass_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 10)
-	a.IsNotNil()
+	a = a.IsNotNil()
 	if s.Failed() {
 		t.Fatalf("should not have failed")
 	}
@@ -79,7 +79,7 @@ func notNilPass_Any(t *testing.T, s *assertion.Soft) {
 
 func notNilFail_Any(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, nil)
-	a.IsNotNil()
+	a = a.IsNotNil()
 	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
