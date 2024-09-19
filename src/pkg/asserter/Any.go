@@ -7,7 +7,7 @@ import (
 )
 
 func NewAny(a assertion.Assertion, value any) *Any {
-	return &Any{a: a}
+	return &Any{a: a, e: value}
 }
 
 type Any struct {
@@ -16,9 +16,12 @@ type Any struct {
 }
 
 func (a *Any) IsEqualTo(val any) {
-	a.a.FailWith(
-		message.Expected().
-			Value(a.e).
-			Verb(verbs.ToEqual),
-	)
+	if a.e != val {
+		a.a.FailWith(
+			message.Expected().
+				Value(a.e).
+				Verb(verbs.ToEqual).
+				Value(val),
+		)
+	}
 }

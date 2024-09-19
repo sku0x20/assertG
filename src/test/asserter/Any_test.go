@@ -9,7 +9,8 @@ import (
 
 func Test_Any(t *testing.T) {
 	r := runner.NewTestsRunner[*assertion.Soft](t, initE)
-	r.Add(equalsFail)
+	r.Add(notEqual)
+	r.Add(equal)
 	r.Run()
 }
 
@@ -17,11 +18,19 @@ func initE(t *testing.T) *assertion.Soft {
 	return assertion.NewSoft(t)
 }
 
-func equalsFail(t *testing.T, s *assertion.Soft) {
+func notEqual(t *testing.T, s *assertion.Soft) {
 	a := asserter.NewAny(s, 30)
 	a.IsEqualTo("something")
 	if !s.Failed() {
 		t.Fatalf("should have failed")
+	}
+}
+
+func equal(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, 30)
+	a.IsEqualTo(30)
+	if s.Failed() {
+		t.Fatalf("should not have failed")
 	}
 }
 
