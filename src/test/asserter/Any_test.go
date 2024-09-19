@@ -17,10 +17,10 @@ func initE(t *testing.T) *assertion.Soft {
 	return assertion.NewSoft(t)
 }
 
-func equalsFail(t *testing.T, f *assertion.Soft) {
-	a := asserter.NewAny(f, 30)
+func equalsFail(t *testing.T, s *assertion.Soft) {
+	a := asserter.NewAny(s, 30)
 	a.IsEqualTo("something")
-	if !f.Failed() {
+	if !s.Failed() {
 		t.Fatalf("should have failed")
 	}
 }
