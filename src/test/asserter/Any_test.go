@@ -2,22 +2,22 @@ package asserter
 
 import (
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/test/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
 func Test_Any(t *testing.T) {
-	r := runner.NewTestsRunner[*assertion.Fake](t, initE)
+	r := runner.NewTestsRunner[*assertion.Soft](t, initE)
 	r.Add(equalsFail)
 	r.Run()
 }
 
-func initE(t *testing.T) *assertion.Fake {
-	return assertion.NewFake(t)
+func initE(t *testing.T) *assertion.Soft {
+	return assertion.NewSoft(t)
 }
 
-func equalsFail(t *testing.T, f *assertion.Fake) {
+func equalsFail(t *testing.T, f *assertion.Soft) {
 	a := asserter.NewAny(f, 30)
 	a.IsEqualTo("something")
 	if !f.Failed() {

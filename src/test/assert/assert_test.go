@@ -2,13 +2,13 @@ package assert
 
 import (
 	assertP "github.com/sku0x20/assertG/src/pkg/assert"
-	"github.com/sku0x20/assertG/src/test/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"testing"
 )
 
 func Test_Assert(t *testing.T) {
 	var assert any
-	assert = assertP.NewAssert(assertion.NewFake())
+	assert = assertP.NewAssert(assertion.NewSoft())
 	casted, ok := assert.(*assertP.Assert)
 	if !ok {
 		t.Fatalf("err")
