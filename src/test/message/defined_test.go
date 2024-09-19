@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func Test_Common(t *testing.T) {
+func Test_Defined(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
 	r.Add(expected)
 	r.Run()
