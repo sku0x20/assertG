@@ -10,4 +10,6 @@ const (
 	NotToContain = "NotToContain"
 	ToHaveLength = "ToHaveLength"
 	ButWas       = "ButWas"
+	ToBeTrue     = "ToBeTrue"
+	ToBeFalse    = "ToBeFalse"
 )
