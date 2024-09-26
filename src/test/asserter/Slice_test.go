@@ -24,15 +24,15 @@ func ContainsExactlyInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 		a int
 		b int
 	}
-	e := []*s{{10, 20}, {20, 30}}
+	e := []s{{10, 20}, {20, 30}}
 	tests := []struct {
-		a    []*s
+		a    []s
 		fail bool
 	}{
-		{[]*s{{10, 20}, {20, 30}}, false},
-		{[]*s{{10, 20}, {20, 10}}, true},
-		{[]*s{{10, 20}}, true},
-		{[]*s{{20, 30}, {10, 20}}, true},
+		{[]s{{10, 20}, {20, 30}}, false},
+		{[]s{{10, 20}, {20, 10}}, true},
+		{[]s{{10, 20}}, true},
+		{[]s{{20, 30}, {10, 20}}, true},
 	}
 	for _, test := range tests {
 		tm.Run("", func(t *testing.T) {
