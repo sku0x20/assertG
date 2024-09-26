@@ -5,7 +5,6 @@ import (
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"reflect"
-	"slices"
 )
 
 func NewSlice[T any](a assertion.Assertion, val []T) *Slice[T] {
@@ -83,9 +82,7 @@ func (s *Slice[T]) containsExactlyInAnyOrder(elems ...T) {
 		return
 	}
 	for _, e := range elems {
-		if !slices.ContainsFunc(s.e, func(t T) bool {
-			return reflect.DeepEqual(t, e)
-		}) {
+		if len(allIndexDeepEqual(s.e, e)) != 1 {
 			s.a.FailWith(
 				message.Expected().
 					Value(s.e).
@@ -101,10 +98,8 @@ func (s *Slice[T]) containsExactlyInAnyOrder(elems ...T) {
 
 func (s *Slice[T]) containsOnceInOrder(elems ...T) {
 	ei := make([]int, 0)
-	for _, elem := range elems {
-		indexes := allIndex(s.e, func(t T) bool {
-			return reflect.DeepEqual(elem, t)
-		})
+	for _, e := range elems {
+		indexes := allIndexDeepEqual(s.e, e)
 		if len(indexes) != 1 {
 			s.a.FailWith(
 				message.Expected().
@@ -130,6 +125,12 @@ func (s *Slice[T]) containsOnceInOrder(elems ...T) {
 			)
 		}
 	}
+}
+
+func allIndexDeepEqual[T any](s []T, elem T) []int {
+	return allIndex(s, func(t T) bool {
+		return reflect.DeepEqual(t, elem)
+	})
 }
 
 func allIndex[T any](s []T, f func(t T) bool) []int {
