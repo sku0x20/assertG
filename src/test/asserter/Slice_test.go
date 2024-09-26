@@ -20,20 +20,24 @@ func Test_Slice(t *testing.T) {
 }
 
 func ContainsExactlyInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
+	type s struct {
+		a int
+		b int
+	}
+	e := []*s{{10, 20}, {20, 30}}
 	tests := []struct {
-		e    []int
-		a    []int
+		a    []*s
 		fail bool
 	}{
-		{[]int{1, 2}, []int{1, 2}, false},
-		{[]int{1, 2}, []int{1, 3}, true},
-		{[]int{1, 2}, []int{1}, true},
-		{[]int{1, 2}, []int{2, 1}, true},
+		{[]*s{{10, 20}, {20, 30}}, false},
+		{[]*s{{10, 20}, {20, 10}}, true},
+		{[]*s{{10, 20}}, true},
+		{[]*s{{20, 30}, {10, 20}}, true},
 	}
 	for _, test := range tests {
 		tm.Run("", func(t *testing.T) {
 			s := assertion.NewSoft(t)
-			a := asserter.NewSlice(s, test.e)
+			a := asserter.NewSlice(s, e)
 			a = a.Contains(asserter.EXACTLY, asserter.IN_ORDER, test.a...)
 			if s.Failed() != test.fail {
 				t.Fatalf("should have failed = %t", test.fail)
