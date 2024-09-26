@@ -14,4 +14,5 @@ const (
 	ToBeFalse    = "ToBeFalse"
 	Exactly      = "Exactly"
 	InOrder      = "InOrder"
+	InAnyOrder   = "InAnyOrder"
 )

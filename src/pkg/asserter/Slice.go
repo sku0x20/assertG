@@ -5,6 +5,7 @@ import (
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"reflect"
+	"slices"
 )
 
 func NewSlice[T any](a assertion.Assertion, val []T) *Slice[T] {
@@ -48,6 +49,8 @@ func (s *Slice[T]) Contains(times Times, order Order, elems ...T) *Slice[T] {
 	switch {
 	case times == EXACTLY && order == IN_ORDER:
 		s.containsExactlyInOrder(elems...)
+	case times == EXACTLY && order == ANY_ORDER:
+		s.containsExactlyInAnyOrder(elems...)
 	}
 	return s
 }
@@ -62,5 +65,33 @@ func (s *Slice[T]) containsExactlyInOrder(elems ...T) {
 				Verb(verbs.Exactly).
 				Verb(verbs.InOrder),
 		)
+	}
+}
+
+func (s *Slice[T]) containsExactlyInAnyOrder(elems ...T) {
+	if len(s.e) != len(elems) {
+		s.a.FailWith(
+			message.Expected().
+				Value(s.e).
+				Verb(verbs.ToContain).
+				Value(elems).
+				Verb(verbs.Exactly).
+				Verb(verbs.InAnyOrder),
+		)
+		return
+	}
+	for _, e := range elems {
+		if !slices.ContainsFunc(s.e, func(t T) bool {
+			return reflect.DeepEqual(t, e)
+		}) {
+			s.a.FailWith(
+				message.Expected().
+					Value(s.e).
+					Verb(verbs.ToContain).
+					Value(elems).
+					Verb(verbs.Exactly).
+					Verb(verbs.InAnyOrder),
+			)
+		}
 	}
 }

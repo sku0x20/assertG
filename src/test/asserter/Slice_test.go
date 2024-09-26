@@ -66,3 +66,23 @@ func ContainsExactlyInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 		})
 	}
 }
+
+func ContainsExactlyAnyOrder_Slice(tm *testing.T, _ *assertion.Soft) {
+	e := []s{{10, 20}, {20, 30}}
+	tests := []test{
+		{[]s{{10, 20}, {20, 30}}, false},
+		{[]s{{10, 20}, {20, 10}}, true},
+		{[]s{{10, 20}}, true},
+		{[]s{{20, 30}, {10, 20}}, false},
+	}
+	for _, ct := range tests {
+		tm.Run("", func(t *testing.T) {
+			sa := assertion.NewSoft(t)
+			a := asserter.NewSlice(sa, e)
+			a = a.Contains(asserter.EXACTLY, asserter.ANY_ORDER, ct.a...)
+			if sa.Failed() != ct.fail {
+				t.Fatalf("should have failed = %t", ct.fail)
+			}
+		})
+	}
+}
