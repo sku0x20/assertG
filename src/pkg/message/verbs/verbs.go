@@ -12,4 +12,6 @@ const (
 	ButWas       = "ButWas"
 	ToBeTrue     = "ToBeTrue"
 	ToBeFalse    = "ToBeFalse"
+	Exactly      = "Exactly"
+	InOrder      = "InOrder"
 )
