@@ -13,6 +13,7 @@ const (
 	ToBeTrue     = "ToBeTrue"
 	ToBeFalse    = "ToBeFalse"
 	Exactly      = "Exactly"
+	Once         = "Once"
 	InOrder      = "InOrder"
 	InAnyOrder   = "InAnyOrder"
 )

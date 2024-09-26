@@ -51,6 +51,8 @@ func (s *Slice[T]) Contains(times Times, order Order, elems ...T) *Slice[T] {
 		s.containsExactlyInOrder(elems...)
 	case times == EXACTLY && order == ANY_ORDER:
 		s.containsExactlyInAnyOrder(elems...)
+	case times == ONCE && order == IN_ORDER:
+		s.containsOnceInOrder(elems...)
 	}
 	return s
 }
@@ -92,6 +94,50 @@ func (s *Slice[T]) containsExactlyInAnyOrder(elems ...T) {
 					Verb(verbs.Exactly).
 					Verb(verbs.InAnyOrder),
 			)
+			return
 		}
 	}
+}
+
+func (s *Slice[T]) containsOnceInOrder(elems ...T) {
+	ei := make([]int, 0)
+	for _, elem := range elems {
+		indexes := allIndex(s.e, func(t T) bool {
+			return reflect.DeepEqual(elem, t)
+		})
+		if len(indexes) != 1 {
+			s.a.FailWith(
+				message.Expected().
+					Value(s.e).
+					Verb(verbs.ToContain).
+					Value(elems).
+					Verb(verbs.Once).
+					Verb(verbs.InAnyOrder),
+			)
+			return
+		}
+		ei = append(ei, indexes[0])
+	}
+	for i := 1; i < len(ei); i++ {
+		if ei[i] < ei[i-1] {
+			s.a.FailWith(
+				message.Expected().
+					Value(s.e).
+					Verb(verbs.ToContain).
+					Value(elems).
+					Verb(verbs.Once).
+					Verb(verbs.InAnyOrder),
+			)
+		}
+	}
+}
+
+func allIndex[T any](s []T, f func(t T) bool) []int {
+	in := make([]int, 0, len(s))
+	for i := range s {
+		if f(s[i]) {
+			in = append(in, i)
+		}
+	}
+	return in
 }
