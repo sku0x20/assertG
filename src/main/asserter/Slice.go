@@ -35,6 +35,21 @@ func (s *Slice[T]) HasLength(l int) *Slice[T] {
 	return s
 }
 
+func (s *Slice[T]) Contains(elem T) *Slice[T] {
+	for _, actual := range s.actual {
+		if s.elemEquator.AreEqual(actual, elem) {
+			break
+		}
+		s.assertion.FailWith(
+			message.Expected().
+				Value(s.actual).
+				Verb(verbs.ToContain).
+				Value(elem),
+		)
+	}
+	return s
+}
+
 func (s *Slice[T]) IsEqualTo(expected []T) *Slice[T] {
 	s.HasLength(len(expected))
 	for i := 0; i < len(expected); i++ {

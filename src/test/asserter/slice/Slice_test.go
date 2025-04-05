@@ -13,6 +13,7 @@ func Test_Slice(t *testing.T) {
 	r.Add(hasLength)
 	r.Add(isEqualTo)
 	r.Add(isEqualToIgnoringOrder)
+	r.Add(contains)
 	r.Run()
 }
 
@@ -27,6 +28,22 @@ func hasLength(t *testing.T, _ any) {
 	sa = assert_type.NewSoftAssert(t)
 	a = asserter.NewSlice(sa, equator.NewComparableEquator[int](), intS)
 	a = a.HasLength(2)
+	if !sa.Failed() {
+		t.Fatalf("should have failed")
+	}
+}
+
+func contains(t *testing.T, _ any) {
+	intS := []int{10, 20, 30}
+	sa := assert_type.NewSoftAssert(t)
+	a := asserter.NewSlice(sa, equator.NewComparableEquator[int](), intS)
+	a = a.Contains(10)
+	if sa.Failed() {
+		t.Fatalf("should not have failed")
+	}
+	sa = assert_type.NewSoftAssert(t)
+	a = asserter.NewSlice(sa, equator.NewComparableEquator[int](), intS)
+	a = a.Contains(50)
 	if !sa.Failed() {
 		t.Fatalf("should have failed")
 	}
