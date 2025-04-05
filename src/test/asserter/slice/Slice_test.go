@@ -11,8 +11,8 @@ import (
 func Test_Slice(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
 	r.Add(hasLength)
-	r.Add(IsEqualTo)
-	r.Add(IsEqualToIgnoringOrder)
+	r.Add(isEqualTo)
+	r.Add(isEqualToIgnoringOrder)
 	r.Run()
 }
 
@@ -38,7 +38,7 @@ type test struct {
 	shouldFail bool
 }
 
-func IsEqualTo(t *testing.T, _ any) {
+func isEqualTo(t *testing.T, _ any) {
 	tests := []test{
 		{[]int{10, 20, 30}, []int{10}, true},
 		{[]int{10, 20, 30}, []int{10, 20, 30, 40}, true},
@@ -56,7 +56,7 @@ func IsEqualTo(t *testing.T, _ any) {
 	})
 }
 
-func IsEqualToIgnoringOrder(t *testing.T, _ any) {
+func isEqualToIgnoringOrder(t *testing.T, _ any) {
 	tests := []test{
 		{[]int{10, 20, 30}, []int{10}, true},
 		{[]int{10, 20, 30}, []int{10, 20, 30, 40}, true},
