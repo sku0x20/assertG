@@ -1,34 +1,27 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/api"
 	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/equator"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
-	"reflect"
 )
 
-func NewAny(a assertion.Assertion, value any) *Any {
-	return &Any{a: a, e: value}
+func NewAny(a assertion.Assertion, equator equator.Equator[any], value any) *Any {
+	return &Any{assertion: a, equator: equator, actual: value}
 }
 
 type Any struct {
-	a assertion.Assertion
-	e any
+	assertion assertion.Assertion
+	equator   equator.Equator[any]
+	actual    any
 }
 
 func (a *Any) IsEqualTo(val any) *Any {
-	casted, ok := a.e.(api.Equal)
-	var equal bool
-	if ok {
-		equal = casted.Equal(val)
-	} else {
-		equal = reflect.DeepEqual(a.e, val)
-	}
-	if !equal {
-		a.a.FailWith(
+	if !a.equator.AreEqual(a.actual, val) {
+		a.assertion.FailWith(
 			message.Expected().
-				Value(a.e).
+				Value(a.actual).
 				Verb(verbs.ToEqual).
 				Value(val),
 		)
@@ -37,10 +30,10 @@ func (a *Any) IsEqualTo(val any) *Any {
 }
 
 func (a *Any) IsNil() *Any {
-	if a.e != nil {
-		a.a.FailWith(
+	if a.actual != nil {
+		a.assertion.FailWith(
 			message.Expected().
-				Value(a.e).
+				Value(a.actual).
 				Verb(verbs.ToBeNil),
 		)
 	}
@@ -48,10 +41,10 @@ func (a *Any) IsNil() *Any {
 }
 
 func (a *Any) IsNotNil() *Any {
-	if a.e == nil {
-		a.a.FailWith(
+	if a.actual == nil {
+		a.assertion.FailWith(
 			message.Expected().
-				Value(a.e).
+				Value(a.actual).
 				Verb(verbs.NotToBeNil),
 		)
 	}
