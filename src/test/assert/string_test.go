@@ -1,7 +1,7 @@
 package assert
 
 import (
-	assertP "github.com/sku0x20/assertG/src/main/assert"
+	"github.com/sku0x20/assertG/src/main/assert"
 	"github.com/sku0x20/assertG/src/main/assert_type"
 	"github.com/sku0x20/assertG/src/main/asserter"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
@@ -10,13 +10,13 @@ import (
 
 func Test_String(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
-	r.Add(viaPackage_String)
-	r.Add(viaVariable_String)
+	r.Add(thatString)
+	r.Add(thatStringWith)
 	r.Run()
 }
 
-func viaPackage_String(t *testing.T, e any) {
-	var a any = assertP.ThatString(assert_type.NewSoftAssert(t), "some val")
+func thatString(t *testing.T, e any) {
+	var a any = assert.ThatString("some val")
 	casted, ok := a.(*asserter.String)
 	if !ok {
 		t.Fatalf("unable to cast")
@@ -26,9 +26,8 @@ func viaPackage_String(t *testing.T, e any) {
 	}
 }
 
-func viaVariable_String(t *testing.T, e any) {
-	assert := assertP.NewAssert(assert_type.NewSoftAssert(t))
-	var a any = assert.ThatString("some val")
+func thatStringWith(t *testing.T, e any) {
+	var a any = assert.ThatStringWith(assert_type.NewSoftAssert(t), "some val")
 	casted, ok := a.(*asserter.String)
 	if !ok {
 		t.Fatalf("unable to cast")
