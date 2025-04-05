@@ -1,4 +1,4 @@
-package asserter
+package slice
 
 import (
 	"github.com/sku0x20/assertG/src/pkg/asserter"
@@ -18,7 +18,6 @@ func Test_Slice(t *testing.T) {
 	r.Add(ContainsExactlyInOrder_Slice)
 	r.Add(ContainsExactlyAnyOrder_Slice)
 	r.Add(ContainsOnceInOrder_Slice)
-	//r.Add(ContainsOnceAnyOrder_Slice)
 	r.Run()
 }
 
