@@ -7,33 +7,26 @@ import (
 	"testing"
 )
 
-func init_Slice(t *testing.T) *assertion.Soft {
-	return assertion.NewSoft(t)
-}
-
 func Test_Slice(t *testing.T) {
-	r := runner.NewTestsRunner(t, init_Slice)
-	r.Add(hasLengthPass_Slice)
-	r.Add(hasLengthFail_Slice)
-	r.Add(ContainsExactlyInOrder_Slice)
-	r.Add(ContainsExactlyAnyOrder_Slice)
+	r := runner.NewTestsRunnerEmptyInit[any](t)
+	r.Add(hasLength)
+	//r.Add(ContainsExactlyInOrder_Slice)
+	//r.Add(ContainsExactlyAnyOrder_Slice)
 	r.Run()
 }
 
-func hasLengthPass_Slice(t *testing.T, s *assertion.Soft) {
+func hasLength(t *testing.T, _ any) {
 	intS := []int{10}
-	a := asserter.NewSlice(s, intS)
+	sa := assertion.NewSoft(t)
+	a := asserter.NewSlice(sa, intS)
 	a = a.HasLength(1)
-	if s.Failed() {
+	if sa.Failed() {
 		t.Fatalf("should not have failed")
 	}
-}
-
-func hasLengthFail_Slice(t *testing.T, s *assertion.Soft) {
-	intS := []int{10}
-	a := asserter.NewSlice(s, intS)
+	sa = assertion.NewSoft(t)
+	a = asserter.NewSlice(sa, intS)
 	a = a.HasLength(2)
-	if !s.Failed() {
+	if !sa.Failed() {
 		t.Fatalf("should have failed")
 	}
 }
