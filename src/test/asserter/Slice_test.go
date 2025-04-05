@@ -18,6 +18,7 @@ func Test_Slice(t *testing.T) {
 	r.Add(ContainsExactlyInOrder_Slice)
 	r.Add(ContainsExactlyAnyOrder_Slice)
 	r.Add(ContainsOnceInOrder_Slice)
+	//r.Add(ContainsOnceAnyOrder_Slice)
 	r.Run()
 }
 
@@ -57,16 +58,9 @@ func ContainsExactlyInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 		{e, []s{{10, 20}}, true},
 		{e, []s{{20, 30}, {10, 20}}, true},
 	}
-	for _, ct := range tests {
-		tm.Run("", func(t *testing.T) {
-			sa := assertion.NewSoft(t)
-			a := asserter.NewSlice(sa, ct.e)
-			a = a.Contains(asserter.EXACTLY, asserter.IN_ORDER, ct.a...)
-			if sa.Failed() != ct.fail {
-				t.Fatalf("should have failed = %t", ct.fail)
-			}
-		})
-	}
+	runTests(tm, tests, func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s] {
+		return a.Contains(asserter.EXACTLY, asserter.IN_ORDER, elem...)
+	})
 }
 
 func ContainsExactlyAnyOrder_Slice(tm *testing.T, _ *assertion.Soft) {
@@ -77,16 +71,9 @@ func ContainsExactlyAnyOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 		{e, []s{{10, 20}}, true},
 		{e, []s{{20, 30}, {10, 20}}, false},
 	}
-	for _, ct := range tests {
-		tm.Run("", func(t *testing.T) {
-			sa := assertion.NewSoft(t)
-			a := asserter.NewSlice(sa, ct.e)
-			a = a.Contains(asserter.EXACTLY, asserter.ANY_ORDER, ct.a...)
-			if sa.Failed() != ct.fail {
-				t.Fatalf("should have failed = %t", ct.fail)
-			}
-		})
-	}
+	runTests(tm, tests, func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s] {
+		return a.Contains(asserter.EXACTLY, asserter.ANY_ORDER, elem...)
+	})
 }
 
 func ContainsOnceInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
@@ -100,11 +87,21 @@ func ContainsOnceInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 		{[]s{{10, 20}, {20, 30}, {20, 30}, {30, 40}},
 			[]s{{10, 20}, {30, 40}}, false},
 	}
+	runTests(tm, tests, func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s] {
+		return a.Contains(asserter.ONCE, asserter.IN_ORDER, elem...)
+	})
+}
+
+func runTests(
+	t *testing.T,
+	tests []test,
+	fnAssertion func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s],
+) {
 	for _, ct := range tests {
-		tm.Run("", func(t *testing.T) {
+		t.Run("", func(t *testing.T) {
 			sa := assertion.NewSoft(t)
 			a := asserter.NewSlice(sa, ct.e)
-			a = a.Contains(asserter.ONCE, asserter.IN_ORDER, ct.a...)
+			a = fnAssertion(a, ct.a...)
 			if sa.Failed() != ct.fail {
 				t.Fatalf("should have failed = %t", ct.fail)
 			}
