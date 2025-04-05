@@ -16,7 +16,7 @@ func Test_Generic(t *testing.T) {
 	r.Run()
 }
 
-func that(t *testing.T, e any) {
+func that(t *testing.T, _ any) {
 	var a any = assert.That("some val")
 	casted, ok := a.(*asserter.Generic[string])
 	if !ok {
@@ -27,7 +27,7 @@ func that(t *testing.T, e any) {
 	}
 }
 
-func thatWith(t *testing.T, e any) {
+func thatWith(t *testing.T, _ any) {
 	var a any = assert.ThatWith(
 		assert_type.NewSoftAssert(t),
 		equator.NewComparableEquator[string](),

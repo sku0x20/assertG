@@ -15,7 +15,7 @@ func Test_Bool(t *testing.T) {
 	r.Run()
 }
 
-func thatBool(t *testing.T, e any) {
+func thatBool(t *testing.T, _ any) {
 	var a any = assert.ThatBool(true)
 	casted, ok := a.(*asserter.Bool)
 	if !ok {
@@ -26,7 +26,7 @@ func thatBool(t *testing.T, e any) {
 	}
 }
 
-func thatBoolWith(t *testing.T, e any) {
+func thatBoolWith(t *testing.T, _ any) {
 	var a any = assert.ThatBoolWith(assert_type.NewSoftAssert(t), false)
 	casted, ok := a.(*asserter.Bool)
 	if !ok {

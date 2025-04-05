@@ -15,7 +15,7 @@ func Test_String(t *testing.T) {
 	r.Run()
 }
 
-func thatString(t *testing.T, e any) {
+func thatString(t *testing.T, _ any) {
 	var a any = assert.ThatString("some val")
 	casted, ok := a.(*asserter.String)
 	if !ok {
@@ -26,7 +26,7 @@ func thatString(t *testing.T, e any) {
 	}
 }
 
-func thatStringWith(t *testing.T, e any) {
+func thatStringWith(t *testing.T, _ any) {
 	var a any = assert.ThatStringWith(assert_type.NewSoftAssert(t), "some val")
 	casted, ok := a.(*asserter.String)
 	if !ok {
