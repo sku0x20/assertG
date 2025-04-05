@@ -1,18 +1,18 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"strings"
 )
 
-func NewString(a assertion.Assertion, val string) *String {
+func NewString(a assert_type.AssertType, val string) *String {
 	return &String{a, val}
 }
 
 type String struct {
-	a assertion.Assertion
+	a assert_type.AssertType
 	e string
 }
 

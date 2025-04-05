@@ -1,4 +1,4 @@
-package assertion
+package assert_type
 
 import (
 	"os"

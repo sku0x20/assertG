@@ -1,18 +1,18 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"reflect"
 )
 
-func NewSlice[T any](a assertion.Assertion, val []T) *Slice[T] {
+func NewSlice[T any](a assert_type.AssertType, val []T) *Slice[T] {
 	return &Slice[T]{a, val}
 }
 
 type Slice[T any] struct {
-	assertion assertion.Assertion
+	assertion assert_type.AssertType
 	actual    []T
 }
 

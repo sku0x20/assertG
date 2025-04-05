@@ -1,18 +1,18 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/equator"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 )
 
-func NewAny(a assertion.Assertion, equator equator.Equator[any], value any) *Any {
+func NewAny(a assert_type.AssertType, equator equator.Equator[any], value any) *Any {
 	return &Any{assertion: a, equator: equator, actual: value}
 }
 
 type Any struct {
-	assertion assertion.Assertion
+	assertion assert_type.AssertType
 	equator   equator.Equator[any]
 	actual    any
 }

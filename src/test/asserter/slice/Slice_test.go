@@ -1,8 +1,8 @@
 package slice
 
 import (
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
@@ -17,13 +17,13 @@ func Test_Slice(t *testing.T) {
 
 func hasLength(t *testing.T, _ any) {
 	intS := []int{10}
-	sa := assertion.NewSoft(t)
+	sa := assert_type.NewSoftAssert(t)
 	a := asserter.NewSlice(sa, intS)
 	a = a.HasLength(1)
 	if sa.Failed() {
 		t.Fatalf("should not have failed")
 	}
-	sa = assertion.NewSoft(t)
+	sa = assert_type.NewSoftAssert(t)
 	a = asserter.NewSlice(sa, intS)
 	a = a.HasLength(2)
 	if !sa.Failed() {
@@ -56,7 +56,7 @@ func runTests(
 ) {
 	for _, ct := range tests {
 		t.Run("", func(t *testing.T) {
-			sa := assertion.NewSoft(t)
+			sa := assert_type.NewSoftAssert(t)
 			a := asserter.NewSlice(sa, ct.actual)
 			a = fnAssertion(a, ct.expected)
 			if sa.Failed() != ct.shouldFail {

@@ -1,14 +1,14 @@
-package assertion
+package assert_type
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"testing"
 )
 
 func Test_Soft(t *testing.T) {
-	s := assertion.NewSoft(t)
+	s := assert_type.NewSoftAssert(t)
 	if s.Failed() {
 		t.Fatalf("should not be in failed state")
 	}

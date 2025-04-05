@@ -2,8 +2,8 @@ package assert
 
 import (
 	assertP "github.com/sku0x20/assertG/src/pkg/assert"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
@@ -16,7 +16,7 @@ func Test_Bool(t *testing.T) {
 }
 
 func viaPackage_Bool(t *testing.T, e any) {
-	var a any = assertP.ThatBool(assertion.NewSoft(t), true)
+	var a any = assertP.ThatBool(assert_type.NewSoftAssert(t), true)
 	casted, ok := a.(*asserter.Bool)
 	if !ok {
 		t.Fatalf("unable to cast")
@@ -27,7 +27,7 @@ func viaPackage_Bool(t *testing.T, e any) {
 }
 
 func viaVariable_Bool(t *testing.T, e any) {
-	assert := assertP.NewAssert(assertion.NewSoft(t))
+	assert := assertP.NewAssert(assert_type.NewSoftAssert(t))
 	var a any = assert.ThatBool(false)
 	casted, ok := a.(*asserter.Bool)
 	if !ok {

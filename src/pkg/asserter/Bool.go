@@ -1,17 +1,17 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 )
 
-func NewBool(a assertion.Assertion, val bool) *Bool {
+func NewBool(a assert_type.AssertType, val bool) *Bool {
 	return &Bool{a: a, e: val}
 }
 
 type Bool struct {
-	a assertion.Assertion
+	a assert_type.AssertType
 	e bool
 }
 

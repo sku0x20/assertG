@@ -1,19 +1,19 @@
 package asserter
 
 import (
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/assertG/src/pkg/equator"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func init_Any(t *testing.T) *assertion.Soft {
-	return assertion.NewSoft(t)
+func init_Any(t *testing.T) *assert_type.SoftAssert {
+	return assert_type.NewSoftAssert(t)
 }
 
 func Test_Any(t *testing.T) {
-	r := runner.NewTestsRunner[*assertion.Soft](t, init_Any)
+	r := runner.NewTestsRunner[*assert_type.SoftAssert](t, init_Any)
 	r.Add(equalFail_Any)
 	r.Add(equalPass_Any)
 	r.Add(customEquator_Any)
@@ -24,7 +24,7 @@ func Test_Any(t *testing.T) {
 	r.Run()
 }
 
-func equalFail_Any(t *testing.T, s *assertion.Soft) {
+func equalFail_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, equator.NewReflectDeepEquator[any](), 30)
 	a = a.IsEqualTo("something")
 	if !s.Failed() {
@@ -32,7 +32,7 @@ func equalFail_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func equalPass_Any(t *testing.T, s *assertion.Soft) {
+func equalPass_Any(t *testing.T, s *assert_type.SoftAssert) {
 	type st struct {
 		s *string
 	}
@@ -52,7 +52,7 @@ func (f *FakeEquator) AreEqual(a any, b any) bool {
 	return true
 }
 
-func customEquator_Any(t *testing.T, s *assertion.Soft) {
+func customEquator_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, &FakeEquator{}, 10)
 	a = a.IsEqualTo(20)
 	if s.Failed() {
@@ -60,7 +60,7 @@ func customEquator_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func nilPass_Any(t *testing.T, s *assertion.Soft) {
+func nilPass_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, equator.NewReflectDeepEquator[any](), nil)
 	a = a.IsNil()
 	if s.Failed() {
@@ -68,7 +68,7 @@ func nilPass_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func nilFail_Any(t *testing.T, s *assertion.Soft) {
+func nilFail_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, equator.NewReflectDeepEquator[any](), 10)
 	a = a.IsNil()
 	if !s.Failed() {
@@ -76,7 +76,7 @@ func nilFail_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func notNilPass_Any(t *testing.T, s *assertion.Soft) {
+func notNilPass_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, equator.NewReflectDeepEquator[any](), 10)
 	a = a.IsNotNil()
 	if s.Failed() {
@@ -84,7 +84,7 @@ func notNilPass_Any(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func notNilFail_Any(t *testing.T, s *assertion.Soft) {
+func notNilFail_Any(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewAny(s, equator.NewReflectDeepEquator[any](), nil)
 	a = a.IsNotNil()
 	if !s.Failed() {

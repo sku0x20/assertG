@@ -1,14 +1,14 @@
 package asserter
 
 import (
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func init_Bool(t *testing.T) *assertion.Soft {
-	return assertion.NewSoft(t)
+func init_Bool(t *testing.T) *assert_type.SoftAssert {
+	return assert_type.NewSoftAssert(t)
 }
 
 func Test_Bool(t *testing.T) {
@@ -20,7 +20,7 @@ func Test_Bool(t *testing.T) {
 	r.Run()
 }
 
-func truePass_Bool(t *testing.T, s *assertion.Soft) {
+func truePass_Bool(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 1 == 1)
 	a = a.IsTrue()
 	if s.Failed() {
@@ -28,7 +28,7 @@ func truePass_Bool(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func trueFail_Bool(t *testing.T, s *assertion.Soft) {
+func trueFail_Bool(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 2 == 1)
 	a = a.IsTrue()
 	if !s.Failed() {
@@ -36,7 +36,7 @@ func trueFail_Bool(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func falsePass_Bool(t *testing.T, s *assertion.Soft) {
+func falsePass_Bool(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 2 == 1)
 	a = a.IsFalse()
 	if s.Failed() {
@@ -44,7 +44,7 @@ func falsePass_Bool(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func falseFail_Bool(t *testing.T, s *assertion.Soft) {
+func falseFail_Bool(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 1 == 1)
 	a = a.IsFalse()
 	if !s.Failed() {

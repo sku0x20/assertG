@@ -1,14 +1,14 @@
 package asserter
 
 import (
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/assertion"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func init_String(t *testing.T) *assertion.Soft {
-	return assertion.NewSoft(t)
+func init_String(t *testing.T) *assert_type.SoftAssert {
+	return assert_type.NewSoftAssert(t)
 }
 
 func Test_String(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_String(t *testing.T) {
 	r.Run()
 }
 
-func equalPass_String(t *testing.T, s *assertion.Soft) {
+func equalPass_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.IsEqualTo("some val")
 	if s.Failed() {
@@ -32,7 +32,7 @@ func equalPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func equalFail_String(t *testing.T, s *assertion.Soft) {
+func equalFail_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.IsEqualTo("other val")
 	if !s.Failed() {
@@ -40,7 +40,7 @@ func equalFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func containsPass_String(t *testing.T, s *assertion.Soft) {
+func containsPass_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.Contains("val")
 	if s.Failed() {
@@ -48,7 +48,7 @@ func containsPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func containsFail_String(t *testing.T, s *assertion.Soft) {
+func containsFail_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.Contains("other")
 	if !s.Failed() {
@@ -56,7 +56,7 @@ func containsFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func notContainsPass_String(t *testing.T, s *assertion.Soft) {
+func notContainsPass_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.NotContains("other")
 	if s.Failed() {
@@ -64,7 +64,7 @@ func notContainsPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func notContainsFail_String(t *testing.T, s *assertion.Soft) {
+func notContainsFail_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.NotContains("some")
 	if !s.Failed() {
@@ -72,7 +72,7 @@ func notContainsFail_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
+func hasLengthPass_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.HasLength(8)
 	if s.Failed() {
@@ -80,7 +80,7 @@ func hasLengthPass_String(t *testing.T, s *assertion.Soft) {
 	}
 }
 
-func hasLengthFail_String(t *testing.T, s *assertion.Soft) {
+func hasLengthFail_String(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewString(s, "some val")
 	a = a.HasLength(10)
 	if !s.Failed() {

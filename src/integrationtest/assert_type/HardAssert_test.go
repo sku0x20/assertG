@@ -1,7 +1,7 @@
-package assertion
+package assert_type
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assertion"
+	"github.com/sku0x20/assertG/src/pkg/assert_type"
 	"github.com/sku0x20/assertG/src/pkg/message"
 	"github.com/sku0x20/assertG/src/pkg/message/verbs"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
@@ -33,16 +33,16 @@ func Test_Hard(t *testing.T) {
 }
 
 func hardReal(t *testing.T) {
-	r := runner.NewTestsRunner[*assertion.Hard](t, initE)
+	r := runner.NewTestsRunner[*assert_type.HardAssert](t, initE)
 	r.Add(printsMsg)
 	r.Run()
 }
 
-func initE(t *testing.T) *assertion.Hard {
-	return assertion.NewHard(t)
+func initE(t *testing.T) *assert_type.HardAssert {
+	return assert_type.NewHardAssert(t)
 }
 
-func printsMsg(t *testing.T, h *assertion.Hard) {
+func printsMsg(t *testing.T, h *assert_type.HardAssert) {
 	msg := message.Expected().
 		Verb(verbs.ToBeNil)
 	h.FailWith(msg)
