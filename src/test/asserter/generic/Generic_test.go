@@ -21,6 +21,7 @@ func Test_Generic(t *testing.T) {
 	r.Add(nilFail)
 	r.Add(notNilPass)
 	r.Add(notNilFail)
+	r.Add(nilSlice)
 	r.Run()
 }
 
@@ -48,6 +49,7 @@ func equalPass(t *testing.T, s *assert_type.SoftAssert) {
 type FakeEquator struct {
 }
 
+//goland:noinspection GoUnusedParameter
 func (f *FakeEquator) AreEqual(a int, b any) bool {
 	return true
 }
@@ -88,6 +90,19 @@ func notNilFail(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewGeneric(s, equator.NewReflectDeepEquator[any](), nil)
 	a = a.IsNotNil()
 	if !s.Failed() {
+		t.Fatalf("should have failed")
+	}
+}
+
+func rns() []string {
+	var ns []string
+	return ns
+}
+
+func nilSlice(t *testing.T, sa *assert_type.SoftAssert) {
+	a := asserter.NewGeneric(sa, equator.NewReflectDeepEquator[[]string](), rns())
+	a.IsNil()
+	if !sa.Failed() {
 		t.Fatalf("should have failed")
 	}
 }
