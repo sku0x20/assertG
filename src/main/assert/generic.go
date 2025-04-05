@@ -4,17 +4,21 @@ import (
 	"github.com/sku0x20/assertG/src/main/assert_type"
 	"github.com/sku0x20/assertG/src/main/asserter"
 	"github.com/sku0x20/assertG/src/main/equator"
+	"github.com/sku0x20/assertG/src/main/registry"
 )
 
 // methods cannot have type parameters
-// todo: use global registry for AssertType
+// using global registry for AssertType
 
-func (a *Assert) That(value any) *asserter.Generic[any] {
-	return That(a.a, value)
+func That[T any](value T) *asserter.Generic[T] {
+	at := registry.GlobalRegistryGetAssertType()
+	return ThatWith(at, equator.NewReflectDeepEquator[T](), value)
 }
 
-// todo: create fn that take equator
-
-func That[T any](a assert_type.AssertType, value T) *asserter.Generic[T] {
-	return asserter.NewGeneric(a, equator.NewReflectDeepEquator[T](), value)
+func ThatWith[T any](
+	at assert_type.AssertType,
+	equator equator.Equator[T],
+	value T,
+) *asserter.Generic[T] {
+	return asserter.NewGeneric(at, equator, value)
 }
