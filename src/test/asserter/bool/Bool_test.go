@@ -20,6 +20,7 @@ func Test_Bool(t *testing.T) {
 	r.Run()
 }
 
+//goland:noinspection GoBoolExpressions
 func truePass(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 1 == 1)
 	a = a.IsTrue()
@@ -28,6 +29,7 @@ func truePass(t *testing.T, s *assert_type.SoftAssert) {
 	}
 }
 
+//goland:noinspection GoBoolExpressions
 func trueFail(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 2 == 1)
 	a = a.IsTrue()
@@ -36,6 +38,7 @@ func trueFail(t *testing.T, s *assert_type.SoftAssert) {
 	}
 }
 
+//goland:noinspection GoBoolExpressions
 func falsePass(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 2 == 1)
 	a = a.IsFalse()
@@ -44,6 +47,7 @@ func falsePass(t *testing.T, s *assert_type.SoftAssert) {
 	}
 }
 
+//goland:noinspection GoBoolExpressions
 func falseFail(t *testing.T, s *assert_type.SoftAssert) {
 	a := asserter.NewBool(s, 1 == 1)
 	a = a.IsFalse()
