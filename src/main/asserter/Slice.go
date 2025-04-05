@@ -50,22 +50,21 @@ func (s *Slice[T]) IsEqualTo(expected []T) *Slice[T] {
 	return s
 }
 
-//func (s *Slice[T]) IsEqualToIgnoringOrder(expected []T) *Slice[T] {
-//	s.HasLength(len(expected))
-//	//for _, elem := range expected {
-//	//	for _, actual := range s.actual {
-//	//		if elem == actual {
-//	//			break
-//	//		}
-//	//	}
-//	//}
-//	//if !reflect.DeepEqual(s.actual, expected) {
-//	//	s.assertion.FailWith(
-//	//		message.Expected().
-//	//			Value(s.actual).
-//	//			Verb(verbs.ToEqual).
-//	//			Value(expected),
-//	//	)
-//	//}
-//	return s
-//}
+func (s *Slice[T]) IsEqualToIgnoringOrder(expected []T) *Slice[T] {
+	s.HasLength(len(expected))
+outer:
+	for _, elem := range expected {
+		for _, actual := range s.actual {
+			if s.elemEquator.AreEqual(actual, elem) {
+				continue outer
+			}
+		}
+		s.assertion.FailWith(
+			message.Expected().
+				Value(s.actual).
+				Verb(verbs.ToEqual).
+				Value(expected),
+		)
+	}
+	return s
+}

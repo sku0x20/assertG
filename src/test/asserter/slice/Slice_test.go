@@ -12,7 +12,7 @@ func Test_Slice(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
 	r.Add(hasLength)
 	r.Add(IsEqualTo)
-	//r.Add(IsEqualToIgnoringOrder)
+	r.Add(IsEqualToIgnoringOrder)
 	r.Run()
 }
 
@@ -56,25 +56,24 @@ func IsEqualTo(t *testing.T, _ any) {
 	})
 }
 
-//func IsEqualToIgnoringOrder(t *testing.T, _ any) {
-//	t.Skip()
-//	tests := []test{
-//		{[]int{10, 20, 30}, []int{10}, true},
-//		{[]int{10, 20, 30}, []int{10, 20, 30, 40}, true},
-//		{[]int{10, 20, 30}, []int{0, 20, 30}, true},
-//		{[]int{10, 20, 30}, []int{30, 10, 20}, false},
-//		{[]int{10, 20, 30}, []int{10, 20, 30}, false},
-//	}
-//	runTests(t, tests, func(a *asserter.Slice[int], expected []int) *asserter.Slice[int] {
-//		defer func() {
-//			if r := recover(); r != nil {
-//				// panic is valid in the 1st and 2nd case
-//				t.Logf("recovered from panic: %v", r)
-//			}
-//		}()
-//		return a.IsEqualToIgnoringOrder(expected)
-//	})
-//}
+func IsEqualToIgnoringOrder(t *testing.T, _ any) {
+	tests := []test{
+		{[]int{10, 20, 30}, []int{10}, true},
+		{[]int{10, 20, 30}, []int{10, 20, 30, 40}, true},
+		{[]int{10, 20, 30}, []int{0, 20, 30}, true},
+		{[]int{10, 20, 30}, []int{30, 10, 20}, false},
+		{[]int{10, 20, 30}, []int{10, 20, 30}, false},
+	}
+	runTests(t, tests, func(a *asserter.Slice[int], expected []int) *asserter.Slice[int] {
+		defer func() {
+			if r := recover(); r != nil {
+				// panic is valid in the 1st and 2nd case
+				t.Logf("recovered from panic: %v", r)
+			}
+		}()
+		return a.IsEqualToIgnoringOrder(expected)
+	})
+}
 
 func runTests(
 	t *testing.T,
