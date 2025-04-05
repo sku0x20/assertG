@@ -4,20 +4,21 @@ import (
 	"github.com/sku0x20/assertG/src/main/assert"
 	"github.com/sku0x20/assertG/src/main/assert_type"
 	"github.com/sku0x20/assertG/src/main/asserter"
+	"github.com/sku0x20/assertG/src/main/equator"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func Test_Bool(t *testing.T) {
+func Test_Slice(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
-	r.Add(thatBool)
-	r.Add(thatBoolWith)
+	r.Add(thatSlice)
+	r.Add(thatSliceWith)
 	r.Run()
 }
 
-func thatBool(t *testing.T, _ any) {
-	var a any = assert.ThatBool(true)
-	casted, ok := a.(*asserter.Bool)
+func thatSlice(t *testing.T, _ any) {
+	var a any = assert.ThatSlice([]string{"some val"})
+	casted, ok := a.(*asserter.Slice[string])
 	if !ok {
 		t.Fatalf("unable to cast")
 	}
@@ -26,9 +27,13 @@ func thatBool(t *testing.T, _ any) {
 	}
 }
 
-func thatBoolWith(t *testing.T, _ any) {
-	var a any = assert.ThatBoolWith(assert_type.NewSoftAssert(t), false)
-	casted, ok := a.(*asserter.Bool)
+func thatSliceWith(t *testing.T, _ any) {
+	var a any = assert.ThatSliceWith(
+		assert_type.NewSoftAssert(t),
+		equator.NewComparableEquator[string](),
+		[]string{"some val"},
+	)
+	casted, ok := a.(*asserter.Slice[string])
 	if !ok {
 		t.Fatalf("unable to cast")
 	}

@@ -1,8 +1,8 @@
 package message
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/message"
-	"github.com/sku0x20/assertG/src/pkg/message/verbs"
+	"github.com/sku0x20/assertG/src/main/message"
+	"github.com/sku0x20/assertG/src/main/message/verbs"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )

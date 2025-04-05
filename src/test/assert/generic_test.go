@@ -4,20 +4,21 @@ import (
 	"github.com/sku0x20/assertG/src/main/assert"
 	"github.com/sku0x20/assertG/src/main/assert_type"
 	"github.com/sku0x20/assertG/src/main/asserter"
+	"github.com/sku0x20/assertG/src/main/equator"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )
 
-func Test_Bool(t *testing.T) {
+func Test_Generic(t *testing.T) {
 	r := runner.NewTestsRunnerEmptyInit[any](t)
-	r.Add(thatBool)
-	r.Add(thatBoolWith)
+	r.Add(that)
+	r.Add(thatWith)
 	r.Run()
 }
 
-func thatBool(t *testing.T, _ any) {
-	var a any = assert.ThatBool(true)
-	casted, ok := a.(*asserter.Bool)
+func that(t *testing.T, _ any) {
+	var a any = assert.That("some val")
+	casted, ok := a.(*asserter.Generic[string])
 	if !ok {
 		t.Fatalf("unable to cast")
 	}
@@ -26,9 +27,13 @@ func thatBool(t *testing.T, _ any) {
 	}
 }
 
-func thatBoolWith(t *testing.T, _ any) {
-	var a any = assert.ThatBoolWith(assert_type.NewSoftAssert(t), false)
-	casted, ok := a.(*asserter.Bool)
+func thatWith(t *testing.T, _ any) {
+	var a any = assert.ThatWith(
+		assert_type.NewSoftAssert(t),
+		equator.NewComparableEquator[string](),
+		"some val",
+	)
+	casted, ok := a.(*asserter.Generic[string])
 	if !ok {
 		t.Fatalf("unable to cast")
 	}
