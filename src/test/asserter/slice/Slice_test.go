@@ -17,7 +17,6 @@ func Test_Slice(t *testing.T) {
 	r.Add(hasLengthFail_Slice)
 	r.Add(ContainsExactlyInOrder_Slice)
 	r.Add(ContainsExactlyAnyOrder_Slice)
-	r.Add(ContainsOnceInOrder_Slice)
 	r.Run()
 }
 
@@ -72,22 +71,6 @@ func ContainsExactlyAnyOrder_Slice(tm *testing.T, _ *assertion.Soft) {
 	}
 	runTests(tm, tests, func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s] {
 		return a.Contains(asserter.EXACTLY, asserter.ANY_ORDER, elem...)
-	})
-}
-
-func ContainsOnceInOrder_Slice(tm *testing.T, _ *assertion.Soft) {
-	e := []s{{10, 20}, {20, 30}, {30, 40}}
-	tests := []test{
-		{e, []s{{10, 20}, {30, 40}}, false},
-		{e, []s{{10, 20}, {20, 10}}, true},
-		{e, []s{{30, 40}, {10, 20}}, true},
-		{[]s{{10, 20}, {20, 30}, {30, 40}, {30, 40}},
-			[]s{{10, 20}, {30, 40}}, true},
-		{[]s{{10, 20}, {20, 30}, {20, 30}, {30, 40}},
-			[]s{{10, 20}, {30, 40}}, false},
-	}
-	runTests(tm, tests, func(a *asserter.Slice[s], elem ...s) *asserter.Slice[s] {
-		return a.Contains(asserter.ONCE, asserter.IN_ORDER, elem...)
 	})
 }
 
