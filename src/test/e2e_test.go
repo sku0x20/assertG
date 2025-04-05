@@ -9,7 +9,7 @@ import (
 
 func Test_WithoutRunner(t *testing.T) {
 	assert := assertP.NewAssert(assert_type.NewHardAssert(t))
-	assert.ThatAny(10).
+	assert.That(10).
 		IsNotNil().
 		IsEqualTo(10)
 }
@@ -25,7 +25,7 @@ func Test_WithRunner(t *testing.T) {
 }
 
 func makeAssert(_ *testing.T, assert *assertP.Assert) {
-	assert.ThatAny(10).
+	assert.That(10).
 		IsNotNil().
 		IsEqualTo(10)
 }
