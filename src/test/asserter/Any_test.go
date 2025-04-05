@@ -1,9 +1,9 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assert_type"
-	"github.com/sku0x20/assertG/src/pkg/asserter"
-	"github.com/sku0x20/assertG/src/pkg/equator"
+	"github.com/sku0x20/assertG/src/main/assert_type"
+	"github.com/sku0x20/assertG/src/main/asserter"
+	"github.com/sku0x20/assertG/src/main/equator"
 	"github.com/sku0x20/gRunner/src/pkg/runner"
 	"testing"
 )

@@ -1,7 +1,7 @@
 package equator
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/equator"
+	"github.com/sku0x20/assertG/src/main/equator"
 	"testing"
 )
 

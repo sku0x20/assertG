@@ -1,10 +1,10 @@
 package asserter
 
 import (
-	"github.com/sku0x20/assertG/src/pkg/assert_type"
-	"github.com/sku0x20/assertG/src/pkg/equator"
-	"github.com/sku0x20/assertG/src/pkg/message"
-	"github.com/sku0x20/assertG/src/pkg/message/verbs"
+	"github.com/sku0x20/assertG/src/main/assert_type"
+	"github.com/sku0x20/assertG/src/main/equator"
+	"github.com/sku0x20/assertG/src/main/message"
+	"github.com/sku0x20/assertG/src/main/message/verbs"
 )
 
 func NewAny(a assert_type.AssertType, equator equator.Equator[any], value any) *Any {
