@@ -2,18 +2,23 @@ package asserter
 
 import (
 	"github.com/sku0x20/assertG/src/main/assert_type"
+	"github.com/sku0x20/assertG/src/main/equator"
 	"github.com/sku0x20/assertG/src/main/message"
 	"github.com/sku0x20/assertG/src/main/message/verbs"
-	"reflect"
 )
 
-func NewSlice[T any](a assert_type.AssertType, val []T) *Slice[T] {
-	return &Slice[T]{a, val}
+func NewSlice[T any](
+	a assert_type.AssertType,
+	elemEquator equator.Equator[T],
+	val []T,
+) *Slice[T] {
+	return &Slice[T]{a, elemEquator, val}
 }
 
 type Slice[T any] struct {
-	assertion assert_type.AssertType
-	actual    []T
+	assertion   assert_type.AssertType
+	elemEquator equator.Equator[T]
+	actual      []T
 }
 
 func (s *Slice[T]) HasLength(l int) *Slice[T] {
@@ -32,13 +37,35 @@ func (s *Slice[T]) HasLength(l int) *Slice[T] {
 
 func (s *Slice[T]) IsEqualTo(expected []T) *Slice[T] {
 	s.HasLength(len(expected))
-	if !reflect.DeepEqual(s.actual, expected) {
-		s.assertion.FailWith(
-			message.Expected().
-				Value(s.actual).
-				Verb(verbs.ToEqual).
-				Value(expected),
-		)
+	for i := 0; i < len(expected); i++ {
+		if !s.elemEquator.AreEqual(s.actual[i], expected[i]) {
+			s.assertion.FailWith(
+				message.Expected().
+					Value(s.actual).
+					Verb(verbs.ToEqual).
+					Value(expected),
+			)
+		}
 	}
 	return s
 }
+
+//func (s *Slice[T]) IsEqualToIgnoringOrder(expected []T) *Slice[T] {
+//	s.HasLength(len(expected))
+//	//for _, elem := range expected {
+//	//	for _, actual := range s.actual {
+//	//		if elem == actual {
+//	//			break
+//	//		}
+//	//	}
+//	//}
+//	//if !reflect.DeepEqual(s.actual, expected) {
+//	//	s.assertion.FailWith(
+//	//		message.Expected().
+//	//			Value(s.actual).
+//	//			Verb(verbs.ToEqual).
+//	//			Value(expected),
+//	//	)
+//	//}
+//	return s
+//}
